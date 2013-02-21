@@ -1,0 +1,566 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                        %%
+%%                 Support de cours Algorithmique et Programmation                  %%
+%%                                                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Morgan Magnin (Centrale Nantes)
+%% création : 10/09/2005
+%% dernière modification : 10/09/2005
+%% historique :
+%% génération du postscript : dvips -t a4 -t landscape -o toto.ps toto
+%% génération du pdf : pdflatex toto
+
+%% il faut fixer l'URL base pour que les liens relatifs fonctionnent...
+%% bizaremment fichu mais c'est comme ça.
+
+
+\documentclass[handout]{beamer}
+
+
+\mode<article> % only for the article version
+{
+  \usepackage{fullpage}
+  \usepackage{hyperref}
+}
+
+
+\mode<presentation>
+{
+  \setbeamertemplate{background canvas}[vertical shading][bottom=red!10,top=blue!10]
+
+  \usetheme{ECN}
+  \usefonttheme[onlysmall]{structurebold}
+}
+
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage{amsmath,amssymb}
+\usepackage[latin1]{inputenc}
+\usepackage{colortbl}
+%\usepackage[french]{babel}
+\usepackage{multirow,slashbox}
+
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc} 
+
+\usepackage{times}
+
+\setbeamercovered{dynamic}
+\setbeamersize{description width of={ }}
+
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx} 
+%\usepackage{epsfig}
+\usepackage{xspace}
+\usepackage{stmaryrd}
+\usepackage{gastex}
+\usepackage[latin1]{inputenc}   %accents 8 bits dans le source
+\usepackage[english]{algorithme}
+%\usepackage[T1]{fontenc} %pour un beau PDF sous Linux ; à retirer sous Mac 
+%\usepackage[french]{babel}
+%\usepackage{beamerthemesplit}
+%\usetheme[compress,secheader]{Madrid}
+%\usecolortheme{mybeetle}
+\definecolor{newcolor}{rgb}{0, 0, .90}
+\definecolor{impcolor}{rgb}{.90, 0, 0}
+\newcommand{\New}[1]{\textcolor{newcolor}{#1}}
+\newcommand{\Imp}[1]{\textcolor{impcolor}{#1}}
+\newcommand{\ie}{\emph{i.e.}\xspace}
+\newcommand{\To}[1]{\stackrel{#1}{\rightarrow}}
+\newcommand{\setN}{\mathbb N} % à utiliser en mode mathématique
+\newcommand{\setR}{\mathbb R} % à utiliser en mode mathématique
+\newcommand{\setB}{\mathbb B} % à utiliser en mode mathématique
+\newcommand{\setZ}{\mathbb Z} % à utiliser en mode mathématique
+\newcommand{\setQ}{\mathbb Q} % à utiliser en mode mathématique
+\newbox\soulbox% nouvelle boite
+\newcommand{\souligne}[1]{%
+\setbox\soulbox\hbox{#1}% memorisation du texte dans la boite
+#1% affichage du texte
+\hskip-\wd\soulbox% deplacement de la largeur du texte vers la gauche
+\lower1pt\hbox{\rule{\wd\soulbox}{.1mm}}% affichage d'une barre de 1/10 de mm
+                                        % a 1pt sous le texte et de la largeur
+                                        % de ce texte
+}
+%------ Commandes spécifiques -------
+\newcommand{\ii}{\^{\i}}%---- \ii = î
+
+\newlength{\comlen}
+\newbox\combox
+
+\newcommand{\commenta}[2]{%
+\setbox\combox\hbox{#1}
+\setlength{\comlen}{0pt}
+\addtolength{\comlen}{\wd\combox}
+\addtolength{\comlen}{-\linewidth}
+\noindent{#1}\hspace*{2mm}\begin{minipage}[t]{-\comlen}{/* #2 */}\end{minipage}
+}
+\newcommand{\commentz}[2]{%
+\setbox\combox\hbox{#1}
+\setlength{\comlen}{0pt}
+\addtolength{\comlen}{\wd\combox}
+\addtolength{\comlen}{-\linewidth}
+\noindent{#1}\hspace*{2mm}\begin{minipage}[t]{-\comlen}{/~#2~/}\end{minipage}
+}
+
+\def\dest{}
+\def\destina{}
+\def\titre{concernant \dest}
+%----------------------------------
+
+
+%-------- Pour l'index ------------
+\newcommand{\Indexttrepete}[1]{\texttt{#1}\index{#1@\texttt{#1}}}
+\newcommand{\Indextt}[1]{\index{#1@\texttt{#1}}}
+\newcommand{\Indexttbf}[1]{\index{#1@\texttt{#1}|textbf}}
+%------------Les mots clés --------
+\newcommand{\const}{\noindent {\tt \souligne{constante}}}
+\newcommand{\var}{\noindent {\tt \souligne{variable}}}
+\newcommand{\varloc}{\noindent {\tt \souligne{variable locale}}}
+\newcommand{\type}{\noindent {\tt \souligne{type}}}
+\newcommand{\reel}{{\tt \souligne{réel}} }
+\newcommand{\entier}{{\tt \souligne{entier}} }
+\newcommand{\car}{{\tt \souligne{caractère}} }
+\newcommand{\bool}{{\tt \souligne{booléen}} }
+%
+\newcommand{\consts}{\noindent {\tt \souligne{constantes}}}
+\newcommand{\vars}{\noindent {\tt \souligne{variables}}}
+\newcommand{\varlocs}{\noindent {\tt \souligne{variables locales}}}
+\newcommand{\types}{\noindent {\tt \souligne{types}}}
+\newcommand{\reels}{{\tt \souligne{réels}} }
+\newcommand{\entiers}{{\tt \souligne{entiers}} }
+\newcommand{\cars}{{\tt \souligne{caractères}} }
+\newcommand{\bools}{{\tt \souligne{booléens}} }
+%
+\newcommand{\et}{{\tt \souligne{et}} }
+\newcommand{\ou}{{\tt \souligne{ou}} }
+\newcommand{\non}{{\tt \souligne{non}} }
+%
+\newcommand{\vecteur}{{\tt \souligne{vecteur}} }
+\newcommand{\matrice}{{\tt \souligne{matrice}} }
+\newcommand{\tableau}{{\tt \souligne{tableau}} }
+%
+\newcommand{\vecteurs}{{\tt \souligne{vecteurs}} }
+\newcommand{\matrices}{{\tt \souligne{matrices}} }
+\newcommand{\tableaux}{{\tt \souligne{tableaux}} }
+%
+\newcommand{\sousfonction}{fonction}
+\newcommand{\sousfonctions}{fonctions}
+\newcommand{\fonction}{fonction}
+\newcommand{\fonctions}{fonctions}
+%
+\newcommand{\prog}{\noindent {\tt \souligne{fonction principale}}\\ }
+\newcommand{\sprog}[1]{\noindent {\tt \souligne{fonction} {#1} }\\}
+%\newcommand{\action}[1]{\noindent {\tt \souligne{action} {#1} }\\}
+\newcommand{\prob}[1]{\noindent {\tt \souligne{problème}~:} {#1} \\}
+\newcommand{\princi}[1]{\noindent {\tt \souligne{principe}~:} {#1} \\}
+%
+\newcommand{\specifp}[2]{\noindent{\tt \souligne{spécification}~:  }\\
+\hspace*{5mm}\begin{tabular}{ll}
+\souligne{{\tt constantes}}~: & \begin{minipage}[t]{135mm}
+                                  {{#1}}   \end{minipage}\\
+\souligne{{\tt types}}~: & \begin{minipage}[t]{135mm}
+                                  {{#2}}   \end{minipage}\\
+\end{tabular}\\}
+%
+\newcommand{\specif}[3]{\noindent{\tt \souligne{spécification}~:  }\\
+\hspace*{5mm}\begin{tabular}{ll}
+\souligne{{\tt fonction}}~: & \begin{minipage}[t]{135mm}
+                                  {{#1}}   \end{minipage}\\
+\souligne{{\tt paramètres}}~: & \begin{minipage}[t]{135mm}
+                                  {{#2}}   \end{minipage}\\
+\souligne{{\tt résultats}}~: & \begin{minipage}[t]{135mm}
+                                  {{#3}}   \end{minipage}\\
+\end{tabular} \\
+}
+%
+\newcommand{\specifaction}[3]{\noindent{\tt \souligne{spécification}~:  }\\
+\hspace*{5mm}\begin{tabular}{ll}
+\souligne{{\tt action}}~: & \begin{minipage}[t]{135mm}
+                                  {{#1}}   \end{minipage}\\
+\souligne{{\tt paramètres}}~: & \begin{minipage}[t]{135mm}
+                                  {{#2}}   \end{minipage}\\
+\souligne{{\tt résultat}}~: & \begin{minipage}[t]{135mm}
+                                  {{#3}}   \end{minipage}\\
+\end{tabular} \\
+}
+%
+%\newcommand{\varloc}[1]{\souligne{{\tt variables locales}}\\ \hspace*{5mm} {\tt #1}}
+\newcommand{\debut}{\noindent\souligne{{\tt début}}\\}
+\newcommand{\fin}{\noindent\souligne{{\tt fin}}\\}
+%
+\newcommand{\vardecal}[1]{\hspace*{10mm}{#1}\\}
+%
+\newcommand{\enreg}{\souligne{{\tt Enregistrement}}\\}
+\newcommand{\finenreg}{\souligne{{\tt Fin\_enregistrement}}\\}
+%
+\newcommand{\norm}[1]{\noindent{\tt {#1}}\\ }
+\newcommand{\normc}[1]{\noindent{\tt {#1}}\\ }
+\newcommand{\decal}[1]{\noindent {\tt
+\hspace*{5mm} \begin{minipage}[t]{155mm}
+                                  {{#1}} \end{minipage}
+                        }\\ }
+\newcommand{\decalc}[1]{\noindent{\tt \hspace*{5mm} \begin{minipage}[t]{155mm}
+                                  {{#1}}
+                                  \end{minipage}
+                        }\\ }
+\newcommand{\decala}[1]{{\tt \hspace*{20mm} \begin{minipage}[t]{135mm}
+                                  {{#1}}  \end{minipage}
+                        }\\ }
+\newcommand{\decalb}[1]{{\tt \hspace*{30mm} \begin{minipage}[t]{120mm}
+                                  {{#1}}
+                                  \end{minipage}
+                        }\\ }
+\newcommand{\decald}[1]{{\tt \hspace*{40mm} \begin{minipage}[t]{110mm}
+                                  {{#1}}
+                                  \end{minipage}
+                        }\\ }
+%
+\newcommand{\inst}[1]{\noindent{\tt ~|~~ {#1}}\\ }
+\newcommand{\instr}[1]{\noindent{\tt ~|~~~|~~ {#1}}\\ }
+\newcommand{\instru}[1]{\noindent{\tt ~|~~~|~~~|~~ {#1}}\\ }
+\newcommand{\instruc}[1]{\noindent{\tt ~|~~~|~~~|~~~|~~ {#1}}\\ }
+\newcommand{\instruct}[1]{\noindent{\tt ~|~~~|~~~|~~~|~~~|~~ {#1}}\\ }
+\newcommand{\instructi}[1]{\noindent{\tt ~|~~~|~~~|~~~|~~~|~~~|~~ {#1}}\\ }
+%
+\newcommand{\pour}[2]{{\tt \souligne{pour} {~#1~} \souligne{à} {~#2~} \souligne{faire} }}
+\newcommand{\finpour}{{\tt \souligne{fin pour} }}
+%
+\newcommand{\si}[1]{{\tt \souligne{si} {~#1~} \souligne{alors}}}
+\newcommand{\finsi}{{\tt \souligne{fin si}}}
+\newcommand{\sinon}{{\tt \souligne{sinon}}}
+%
+\newcommand{\tantque}[1]{{\tt \souligne{tant que} {~#1~} \souligne{faire} }}
+\newcommand{\fintantque}{{\tt \souligne{fin tant que} }}
+%
+\newcommand{\choixselon}{{\tt \souligne{choix selon}~:}}
+\newcommand{\finchoixselon}{{\tt \souligne{fin choix selon}}}
+%
+\newcommand{\lire}[1]{{\tt \souligne{lire}{~(#1)}}}
+\newcommand{\ecrire}[1]{{\tt \souligne{écrire}{~(#1)}}}
+\newcommand{\renvoyer} [1]{{\tt \souligne{renvoyer}{~#1} }}
+%
+\newcommand{\bl}{$\flat$}
+%
+\newcommand{\algo}{\noindent{\tt\fbox{algorithme}}\\}
+\newcommand{\cc}{\noindent{\textsf\fbox{C}}\\}
+\newcommand{\ccp}{\noindent{\textsf\fbox{C++}}\\}
+\newcommand{\ccc}{{\textsf C/C++ } }
+\newcommand{\boitsoul}[1]{\noindent\fbox{#1}}
+%
+\newcommand{\remarque}{\noindent{\em Remarque}~:~}
+\newcommand{\remarques}{\noindent{\em Remarques}~:~}
+%
+\newcommand{\attention}{\noindent{\em Attention}~:~}
+%
+\newcommand{\exemplei}[1]{\noindent{\em Exemple~#1}~:\\}
+\newcommand{\exemple}{\noindent{\em Exemple}~:\\}
+\newcommand{\exemples}{\noindent{\em Exemples}~:\\}
+%
+\newcommand{\parag}[1]{\medskip\noindent{\textbf{\em #1}}~:\\}
+%
+\newcommand{\ty}{t\_}
+%
+\newcommand{\uu}[1]{souligne{#1}}
+\newtheorem{condition}{Condition}
+
+
+\title[Compléments]{Tris et compléments de programmation}
+\author[Morgan Magnin]{\textbf{Morgan Magnin} \\ Bureau E214 \\ 
+\texttt{morgan.magnin@irccyn.ec-nantes.fr}}
+\institute[Centrale Nantes]{
+  Ecole Centrale de Nantes \\
+  1, rue de la No\"{e} \\
+  B.P. 92101 \\
+  44321 Nantes Cedex 3 \\
+  France}
+  \date{Mars 2012}
+
+
+\AtBeginSection[] % Do nothing for \section*
+{ 
+\frame<beamer> 
+	{ 
+	\frametitle{Sommaire} 
+	\tableofcontents[current]
+	} 
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+%\section[Table of contents]{}
+\frame{\tableofcontents}
+
+\section{Introduction}
+
+\frame{
+  \frametitle{Concernant la suite/fin de l'enseignement}
+  
+  \begin{itemize}
+  \item Cette séance : 
+   	\begin{itemize}
+ 	 \item Algorithmes de tris
+	 \item Lectures/ecriture dans des fichiers
+	 \end{itemize}
+  \item Prochain TD : orienté algorithmique, approfondissements autour de l'analyse descendante
+  \item TP et TA : application des notions vues au cours de l'enseignement
+  \end{itemize}
+}
+
+\section{Précisions autour de l'écriture de fonctions}
+
+\frame{
+  \frametitle{Fonctions en algorithmique}
+  
+  \begin{itemize}
+  \item \textbf{En algorithmique}, une fonction \alert{ne modifie pas ses paramètres}.
+  \item Penser les fonctions comme des blocs réutilisables ;
+  \item Illustration du mécanisme d'analyse descendante : TP "Entiers Longs"
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Fonctions en C}
+  
+  \begin{itemize}
+  \item Intérêt d'écrire les sources dans différents fichiers ;
+  \item Rappel sur les fichiers en-tête \texttt{.h} et leur lien avec les fichiers sources ;
+  \item Illustration sur le TP "Entiers Longs"  
+  \end{itemize}
+}
+
+\section{Algorithmes de tris}
+
+\frame{
+  \frametitle{Trois tris fondamentaux (chap.9)}
+  
+  \begin{itemize}
+  \item Tri par insertion
+  \item Tri par sélection 
+  \item Tri bulles
+  \end{itemize}
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Tri par insertion}
+  
+  \begin{itemize}
+  \item Considérer le 1er élément comme un sous-tableau de taille 1
+  \item Insérer l'élément suivant à la bonne position 
+  \item Recommencer en insérant l'élément suivant
+  \end{itemize}
+  
+  \framebreak
+  
+\specif
+{tableau $\leftarrow$ TriInsertion(tableau, n)}
+{vecteur \entier tableau\\
+\entier n}
+{vecteur \entier tableau}
+
+\algo
+\norm{\varlocs}
+\decal{\entier tmp // intermédiaire}
+\framebreak
+\debut
+\inst{\pour {i $\leftarrow$ 1}{n-1}}
+\instr{tmp $\leftarrow$ tableau[i]}
+\instr{j $\leftarrow$ i}
+\instr{\tantque {j $>$ 0 et tableau[j-1] $>$ tmp}}
+\instru{tableau[j] $\leftarrow$ tableau[j-1]}
+\instru{j $\leftarrow$ j-1}
+\instr{\fintantque}
+\instr{tableau[j] $\leftarrow$ tmp}
+\inst{\finpour}
+\fin
+  
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Tri par sélection}
+  
+  \begin{itemize}
+  \item Rechercher le plus petit élément du tableau
+  \item Échanger le plus petit élément avec le premier élément du tableau
+  \item Recommencer avec la partie non triée du tableau
+  \end{itemize}
+  
+  \framebreak
+  
+\specif
+{tab $\leftarrow$ TriSelection(tab, n)}
+{vecteur \entier tab\\
+\entier n}
+{vecteur \entier tab}
+
+\algo
+
+\norm{\varlocs}
+\decal{\entier min // indice de la valeur minimale}
+\framebreak
+\debut
+\inst{\pour {i $\leftarrow$ 0}{n-2}}
+\instr{min $\leftarrow$ i}
+\instr{\pour {j $\leftarrow$ i+1}{n-1}}
+\instru{\si{tab[j] $<$ tab[min]}}
+\instruc{min $\leftarrow$ j}
+\instru{\finsi}
+\instr{\finpour}
+\instr{\si {min $\ne$ i}}
+\instru{échanger tab[i] et tab[min]}
+\instr{\finsi}
+\inst{fin pour}
+\fin
+  
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Tri à bulles}
+  
+  \begin{itemize}
+  \item Considérer un sous-tableau de 2 éléments que l'on échange s'ils ne sont pas dans l'ordre
+  \item Décaler le sous-tableau d'une case en parcourant tout le tableau
+  \item Recommencer au début du tableau jusqu'à ce que tout soit trié
+  \end{itemize}
+  
+  \framebreak
+  
+\specif
+{tableau $\leftarrow$ TriABulles(tableau, n)}
+{vecteur \entier tableau\\
+\entier n}
+{vecteur \entier tableau}
+
+\algo
+
+\norm{\varlocs}
+\decal{\entier tmp // intermédiaire}
+\decal{\bool aucunEchange // Vrai si pas d'échange}
+\framebreak
+\debut
+\inst{aucunEchange $\leftarrow$ faux}
+\inst{\tantque {auncunEchange $=$ faux}}
+\instr{aucunEchange $\leftarrow$ vrai}
+\instr{\pour {j $\leftarrow$ 0}{n-2}}
+\instru{\si {tableau[j] > tableau[j+1]}}
+\instruc{échanger tableau[j] et tableau[j+1]}
+\instruc{auncunEchange $\leftarrow$ faux}
+\instr{\finpour}
+\inst{\fintantque}
+\fin
+  
+}
+
+\section{Lecture/écriture dans les fichiers en C}
+
+\frame{
+  \frametitle{Différentes possibilités (p56)}
+  
+  \begin{itemize}
+  \item Redirection des flux standards
+  \item \textbf{Utilisation des flux propres aux fichiers avec \texttt{stdio.h}}
+  \end{itemize}
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Redirection des flux standards}
+  
+  Habituellement, l'interpréteur de commandes Unix ouvre de lui-même :
+    \begin{itemize}
+	\item une \textbf{entrée standard} associée par défaut au clavier ;
+	\item une \textbf{sortie standard} associée par défaut à l'écran ;
+	\item une \textbf{sortie d'erreur standard}, associée par défaut à l'écran.
+    \end{itemize}
+  Possibilité de \textbf{rediriger ces entrées-sorties standard} vers un fichier, une commande, un programme, un périphérique, etc.
+
+\framebreak
+
+    \begin{itemize}
+	\item \textbf{Redirection de la sortie standard} : utiliser le caractère \texttt{>} \\
+    		\texttt{./premier\_prog.out >resultats.txt}
+	\item \textbf{Redirection de l'entrée standard} : utiliser le caractère \texttt{<}\\
+    		\texttt{./second\_prog.out <donnees.txt}
+	\item Plus d'infos sur \url{https://pedagogie.ec-nantes.fr/spip/}
+    \end{itemize}
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Lecture/écriture dans un fichier (p56)}
+  
+  \begin{itemize}
+  	\item Lecture et écriture dans un fichier se font \textbf{séquentiellement}
+	\item Elles font appel à des fonctions prédéfinies nécessitant l'inclusion du
+fichier {\tt stdio.h}.
+Directives à placer en début de fichier pour toutes les lectures et écritures~: \\
+\noindent{\texttt{\#}\texttt{include}  \texttt{<stdio.h>}\\ }
+	\item Différence entre \textbf{nom physique} et \textbf{nom logique}
+%	\item Parallèle avec la lecture/écriture à l'écran
+\framebreak
+	\item Phases d'une lecture/écriture :
+		\begin{itemize}
+			\item {la déclaration~: {\tt FILE* monFichier ;} }
+			\item {l'ouverture~:
+				  \begin{itemize}
+					  \item {{\tt monFichier = fopen("donnees.dat",''r''} pour pouvoir lire dans le fichier}
+					  \item {{\tt monFichier = fopen("donnees.dat",''w'');} pour pouvoir écrire dans le fichier
+						en écrasant ce qu'il y avait éventuellement avant l'ouverture}
+					  \item {{\tt monFichier = fopen("donnees.dat",''a'');} pour pouvoir écrire dans le fichier
+						après ce qu'il y a éventuellement au moment de l'ouverture}
+				  \end{itemize}}
+				
+			  \item {la lecture ou l'écriture avec les fonctions {\tt fprintf} et {\tt fscanf}, le premier argument de ces fonctions est la variable représentant le fichier}
+			  \item {la fermeture via {\tt fclose(monFichier);}\\}
+		\end{itemize}
+\framebreak
+	\item Que se passe-t-il si le fichier existait déjà ? Si le fichier n'existait pas ? 
+	\item Les passages à la ligne
+	\item ''Booléen'' {\tt feof(monFichier)}
+	\item Exemple d'une lecture de données depuis un fichier puis de l'écriture dans un autre fichier
+  \end{itemize}
+}
+
+\section{Automatiser compilation/édition de liens en C}
+
+\frame[allowframebreaks]{
+  \frametitle{Fichiers makefile (p87)}
+  
+  \begin{itemize}
+  \item Préalable : \textbf{mécanisme général} pas uniquement dédié au C ! 
+  \item Intérêt de \textbf{regrouper dans un fichier toutes les commandes de compilation et d'édition de liens} nécessaires pour créer le fichier exécutable dès lors que plusieurs fichiers sources sont en jeu !
+  \item Exemple dans le cas d'un programme avec divers fichiers sources.
+  \item Utilitaire \texttt{make} : \textbf{construit automatiquement} des fichiers objets et des exécutables à partir de fichiers sources.
+  \end{itemize}
+
+\framebreak
+
+  \begin{itemize}
+  \item \texttt{make} : se base sur un fichier baptisé \texttt{Makefile} (ou \texttt{makefile}) dans le répertoire de travail ; 
+  \item Saisir la commande \texttt{make} dans un terminal pour lancer la construction de l'exécutable.
+  \item Ecriture d'un fichier \texttt{makefile}
+  \item Présentation de la syntaxe correspondante
+  \item \alert{Les lignes correspondant aux commandes à exécuter doivent impérativement commencer par \textbf{une tabulation} (et non pas par des espaces !).}
+  \end{itemize}
+}
+
+\section{À préparer}
+\frame
+{
+  \frametitle{See you next week!}
+  
+  \begin{alertblock}{Pour le prochain TP}
+  Préparer la partie algorithmique du TP : 
+  \begin{itemize}
+  \item Algorithmes de tris 
+  \item Lecture et sauvegarde dans des fichiers
+  \end{itemize}
+  \end{alertblock}
+  
+  \begin{block}{Pour le prochain TD}
+  Revoir les principes de l'analyse descendante en vue de sa mise en oeuvre sur un exemple complet
+  \end{block}
+  
+}
+
+\end{document}

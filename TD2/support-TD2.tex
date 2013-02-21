@@ -1,0 +1,906 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                        %%
+%%                 Support de cours Algorithmique et Programmation                  %%
+%%                                                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Morgan Magnin (Centrale Nantes)
+%% création : 10/09/2005
+%% dernière modification : 10/09/2005
+%% historique :
+%% génération du postscript : dvips -t a4 -t landscape -o toto.ps toto
+%% génération du pdf : pdflatex toto
+
+%% il faut fixer l'URL base pour que les liens relatifs fonctionnent...
+%% bizaremment fichu mais c'est comme ça.
+
+
+\documentclass[handout]{beamer}
+
+
+
+\mode<article> % only for the article version
+{
+  \usepackage{fullpage}
+  \usepackage{hyperref}
+}
+
+
+\mode<presentation>
+{
+  \setbeamertemplate{background canvas}[vertical shading][bottom=red!10,top=blue!10]
+
+  \usetheme{ECN}
+  \usefonttheme[onlysmall]{structurebold}
+}
+
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage{amsmath,amssymb}
+\usepackage[latin1]{inputenc}
+\usepackage{colortbl}
+%\usepackage[french]{babel}
+\usepackage{multirow,slashbox}
+
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc} 
+
+\usepackage{times}
+
+\setbeamercovered{dynamic}
+\setbeamersize{description width of={ }}
+
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx} 
+%\usepackage{epsfig}
+\usepackage{xspace}
+\usepackage{stmaryrd}
+\usepackage{gastex}
+\usepackage[latin1]{inputenc}   %accents 8 bits dans le source
+\usepackage[english]{algorithme}
+%\usepackage[T1]{fontenc} %pour un beau PDF sous Linux ; à retirer sous Mac 
+%\usepackage[french]{babel}
+%\usepackage{beamerthemesplit}
+%\usetheme[compress,secheader]{Madrid}
+%\usecolortheme{mybeetle}
+\definecolor{newcolor}{rgb}{0, 0, .90}
+\definecolor{impcolor}{rgb}{.90, 0, 0}
+\newcommand{\New}[1]{\textcolor{newcolor}{#1}}
+\newcommand{\Imp}[1]{\textcolor{impcolor}{#1}}
+\newcommand{\ie}{\emph{i.e.}\xspace}
+\newcommand{\To}[1]{\stackrel{#1}{\rightarrow}}
+\newcommand{\setN}{\mathbb N} % à utiliser en mode mathématique
+\newcommand{\setR}{\mathbb R} % à utiliser en mode mathématique
+\newcommand{\setB}{\mathbb B} % à utiliser en mode mathématique
+\newcommand{\setZ}{\mathbb Z} % à utiliser en mode mathématique
+\newcommand{\setQ}{\mathbb Q} % à utiliser en mode mathématique
+\newbox\soulbox% nouvelle boite
+\newcommand{\souligne}[1]{%
+\setbox\soulbox\hbox{#1}% memorisation du texte dans la boite
+#1% affichage du texte
+\hskip-\wd\soulbox% deplacement de la largeur du texte vers la gauche
+\lower1pt\hbox{\rule{\wd\soulbox}{.1mm}}% affichage d'une barre de 1/10 de mm
+                                        % a 1pt sous le texte et de la largeur
+                                        % de ce texte
+}
+%------ Commandes spécifiques -------
+\newcommand{\ii}{\^{\i}}%---- \ii = î
+
+\newlength{\comlen}
+\newbox\combox
+
+\newcommand{\commenta}[2]{%
+\setbox\combox\hbox{#1}
+\setlength{\comlen}{0pt}
+\addtolength{\comlen}{\wd\combox}
+\addtolength{\comlen}{-\linewidth}
+\noindent{#1}\hspace*{2mm}\begin{minipage}[t]{-\comlen}{/* #2 */}\end{minipage}
+}
+\newcommand{\commentz}[2]{%
+\setbox\combox\hbox{#1}
+\setlength{\comlen}{0pt}
+\addtolength{\comlen}{\wd\combox}
+\addtolength{\comlen}{-\linewidth}
+\noindent{#1}\hspace*{2mm}\begin{minipage}[t]{-\comlen}{/~#2~/}\end{minipage}
+}
+
+\def\dest{}
+\def\destina{}
+\def\titre{concernant \dest}
+%----------------------------------
+
+
+%-------- Pour l'index ------------
+\newcommand{\Indexttrepete}[1]{\texttt{#1}\index{#1@\texttt{#1}}}
+\newcommand{\Indextt}[1]{\index{#1@\texttt{#1}}}
+\newcommand{\Indexttbf}[1]{\index{#1@\texttt{#1}|textbf}}
+%------------Les mots clés --------
+\newcommand{\const}{\noindent {\tt \souligne{constante}}}
+\newcommand{\var}{\noindent {\tt \souligne{variable}}}
+\newcommand{\varloc}{\noindent {\tt \souligne{variable locale}}}
+\newcommand{\type}{\noindent {\tt \souligne{type}}}
+\newcommand{\reel}{{\tt \souligne{réel}} }
+\newcommand{\entier}{{\tt \souligne{entier}} }
+\newcommand{\car}{{\tt \souligne{caractère}} }
+\newcommand{\bool}{{\tt \souligne{booléen}} }
+%
+\newcommand{\consts}{\noindent {\tt \souligne{constantes}}}
+\newcommand{\vars}{\noindent {\tt \souligne{variables}}}
+\newcommand{\varlocs}{\noindent {\tt \souligne{variables locales}}}
+\newcommand{\types}{\noindent {\tt \souligne{types}}}
+\newcommand{\reels}{{\tt \souligne{réels}} }
+\newcommand{\entiers}{{\tt \souligne{entiers}} }
+\newcommand{\cars}{{\tt \souligne{caractères}} }
+\newcommand{\bools}{{\tt \souligne{booléens}} }
+%
+\newcommand{\et}{{\tt \souligne{et}} }
+\newcommand{\ou}{{\tt \souligne{ou}} }
+\newcommand{\non}{{\tt \souligne{non}} }
+%
+\newcommand{\vecteur}{{\tt \souligne{vecteur}} }
+\newcommand{\matrice}{{\tt \souligne{matrice}} }
+\newcommand{\tableau}{{\tt \souligne{tableau}} }
+%
+\newcommand{\vecteurs}{{\tt \souligne{vecteurs}} }
+\newcommand{\matrices}{{\tt \souligne{matrices}} }
+\newcommand{\tableaux}{{\tt \souligne{tableaux}} }
+%
+\newcommand{\sousfonction}{fonction}
+\newcommand{\sousfonctions}{fonctions}
+\newcommand{\fonction}{fonction}
+\newcommand{\fonctions}{fonctions}
+%
+\newcommand{\prog}{\noindent {\tt \souligne{fonction principale}}\\ }
+\newcommand{\sprog}[1]{\noindent {\tt \souligne{fonction} {#1} }\\}
+%\newcommand{\action}[1]{\noindent {\tt \souligne{action} {#1} }\\}
+\newcommand{\prob}[1]{\noindent {\tt \souligne{problème}~:} {#1} \\}
+\newcommand{\princi}[1]{\noindent {\tt \souligne{principe}~:} {#1} \\}
+%
+\newcommand{\specifp}[2]{\noindent{\tt \souligne{spécification}~:  }\\
+\hspace*{5mm}\begin{tabular}{ll}
+\souligne{{\tt constantes}}~: & \begin{minipage}[t]{135mm}
+                                  {{#1}}   \end{minipage}\\
+\souligne{{\tt types}}~: & \begin{minipage}[t]{135mm}
+                                  {{#2}}   \end{minipage}\\
+\end{tabular}\\}
+%
+\newcommand{\specif}[3]{\noindent{\tt \souligne{spécification}~:  }\\
+\hspace*{5mm}\begin{tabular}{ll}
+\souligne{{\tt fonction}}~: & \begin{minipage}[t]{135mm}
+                                  {{#1}}   \end{minipage}\\
+\souligne{{\tt paramètres}}~: & \begin{minipage}[t]{135mm}
+                                  {{#2}}   \end{minipage}\\
+\souligne{{\tt résultats}}~: & \begin{minipage}[t]{135mm}
+                                  {{#3}}   \end{minipage}\\
+\end{tabular} \\
+}
+%
+\newcommand{\specifaction}[3]{\noindent{\tt \souligne{spécification}~:  }\\
+\hspace*{5mm}\begin{tabular}{ll}
+\souligne{{\tt action}}~: & \begin{minipage}[t]{135mm}
+                                  {{#1}}   \end{minipage}\\
+\souligne{{\tt paramètres}}~: & \begin{minipage}[t]{135mm}
+                                  {{#2}}   \end{minipage}\\
+\souligne{{\tt résultat}}~: & \begin{minipage}[t]{135mm}
+                                  {{#3}}   \end{minipage}\\
+\end{tabular} \\
+}
+%
+%\newcommand{\varloc}[1]{\souligne{{\tt variables locales}}\\ \hspace*{5mm} {\tt #1}}
+\newcommand{\debut}{\noindent\souligne{{\tt début}}\\}
+\newcommand{\fin}{\noindent\souligne{{\tt fin}}\\}
+%
+\newcommand{\vardecal}[1]{\hspace*{10mm}{#1}\\}
+%
+\newcommand{\enreg}{\souligne{{\tt Enregistrement}}\\}
+\newcommand{\finenreg}{\souligne{{\tt Fin\_enregistrement}}\\}
+%
+\newcommand{\norm}[1]{\noindent{\tt {#1}}\\ }
+\newcommand{\normc}[1]{\noindent{\tt {#1}}\\ }
+\newcommand{\decal}[1]{\noindent {\tt
+\hspace*{5mm} \begin{minipage}[t]{155mm}
+                                  {{#1}} \end{minipage}
+                        }\\ }
+\newcommand{\decalc}[1]{\noindent{\tt \hspace*{5mm} \begin{minipage}[t]{155mm}
+                                  {{#1}}
+                                  \end{minipage}
+                        }\\ }
+\newcommand{\decala}[1]{{\tt \hspace*{20mm} \begin{minipage}[t]{135mm}
+                                  {{#1}}  \end{minipage}
+                        }\\ }
+\newcommand{\decalb}[1]{{\tt \hspace*{30mm} \begin{minipage}[t]{120mm}
+                                  {{#1}}
+                                  \end{minipage}
+                        }\\ }
+\newcommand{\decald}[1]{{\tt \hspace*{40mm} \begin{minipage}[t]{110mm}
+                                  {{#1}}
+                                  \end{minipage}
+                        }\\ }
+%
+\newcommand{\inst}[1]{\noindent{\tt ~|~~ {#1}}\\ }
+\newcommand{\instr}[1]{\noindent{\tt ~|~~~|~~ {#1}}\\ }
+\newcommand{\instru}[1]{\noindent{\tt ~|~~~|~~~|~~ {#1}}\\ }
+\newcommand{\instruc}[1]{\noindent{\tt ~|~~~|~~~|~~~|~~ {#1}}\\ }
+\newcommand{\instruct}[1]{\noindent{\tt ~|~~~|~~~|~~~|~~~|~~ {#1}}\\ }
+\newcommand{\instructi}[1]{\noindent{\tt ~|~~~|~~~|~~~|~~~|~~~|~~ {#1}}\\ }
+%
+\newcommand{\pour}[2]{{\tt \souligne{pour} {~#1~} \souligne{à} {~#2~} \souligne{faire} }}
+\newcommand{\finpour}{{\tt \souligne{fin pour} }}
+%
+\newcommand{\si}[1]{{\tt \souligne{si} {~#1~} \souligne{alors}}}
+\newcommand{\finsi}{{\tt \souligne{fin si}}}
+\newcommand{\sinon}{{\tt \souligne{sinon}}}
+%
+\newcommand{\tantque}[1]{{\tt \souligne{tant que} {~#1~} \souligne{faire} }}
+\newcommand{\fintantque}{{\tt \souligne{fin tant que} }}
+%
+\newcommand{\choixselon}{{\tt \souligne{choix selon}~:}}
+\newcommand{\finchoixselon}{{\tt \souligne{fin choix selon}}}
+%
+\newcommand{\lire}[1]{{\tt \souligne{lire}{~(#1)}}}
+\newcommand{\ecrire}[1]{{\tt \souligne{écrire}{~(#1)}}}
+\newcommand{\renvoyer} [1]{{\tt \souligne{renvoyer}{~#1} }}
+%
+\newcommand{\bl}{$\flat$}
+%
+\newcommand{\algo}{\noindent{\tt\fbox{algorithme}}\\}
+\newcommand{\cc}{\noindent{\textsf\fbox{C}}\\}
+\newcommand{\ccp}{\noindent{\textsf\fbox{C++}}\\}
+\newcommand{\ccc}{{\textsf C/C++ } }
+\newcommand{\boitsoul}[1]{\noindent\fbox{#1}}
+%
+\newcommand{\remarque}{\noindent{\em Remarque}~:~}
+\newcommand{\remarques}{\noindent{\em Remarques}~:~}
+%
+\newcommand{\attention}{\noindent{\em Attention}~:~}
+%
+\newcommand{\exemplei}[1]{\noindent{\em Exemple~#1}~:\\}
+\newcommand{\exemple}{\noindent{\em Exemple}~:\\}
+\newcommand{\exemples}{\noindent{\em Exemples}~:\\}
+%
+\newcommand{\parag}[1]{\medskip\noindent{\textbf{\em #1}}~:\\}
+%
+\newcommand{\ty}{t\_}
+%
+\newcommand{\uu}[1]{souligne{#1}}
+
+\newtheorem{condition}{Condition}
+
+
+\title[Analyse descendante]{Analyse descendante et types composés}
+\author[Morgan Magnin]{\textbf{Morgan Magnin} \\ Bureau E214 \\ 
+\texttt{morgan.magnin@irccyn.ec-nantes.fr}}
+\institute[Centrale Nantes]{
+  Ecole Centrale de Nantes \\
+  1, rue de la No\"{e} \\
+  B.P. 92101 \\
+  44321 Nantes Cedex 3 \\
+  France}
+\date{Février 2012}
+
+\AtBeginSection[] % Do nothing for \section*
+{ 
+\frame<beamer> 
+	{ 
+	\frametitle{Sommaire} 
+	\tableofcontents[current]
+	} 
+}
+
+\AtBeginSubsection[] % Do nothing for \section*
+{ 
+\frame<beamer> 
+	{ 
+	\frametitle{Sommaire} 
+	\tableofcontents[currentsubsection]
+	} 
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\frame
+{
+  \frametitle{Complément au premier TP}
+  \begin{itemize}
+  \item Notion d'\textbf{indécidabilité} : quand un problème ne peut pas être résolu par un algorithme
+  \item \textbf{Arborescence des fichiers} sous Linux
+%  \item Structure de \texttt{mon1erprog.cxx} expliquée pas à pas 
+  \item Notion de \textit{code d'erreur}
+  \item Questions ?
+  \end{itemize}
+}
+
+%\section[Table of contents]{}
+\frame{\tableofcontents}
+
+\section{Analyse descendante}
+
+\subsection{Introduction}
+
+\frame[allowframebreaks]{
+  \frametitle{Pourquoi des fonctions ? (p30)}
+  
+Une analyse globale d'un problème conduit à l'écriture de la \textbf{fonction principale} qui résoudra ce problème : 
+	
+\prog
+\prob{... // pour dire ce que détermine la fonction, à partir de quelles données }
+%\princi{... // pour expliquer comment on procède pour résoudre le problème }
+\norm{\consts}
+\decal{... // pour définir des valeurs particulières }
+\norm{\types}
+\decal{... // pour définir des types composés utiles pour }
+\decal{représenter des données ou résultats
+de la fonction }
+\framebreak
+\algo
+\norm{\vars}
+\decal{... // pour représenter les données et résultats }
+\debut
+\inst{// obtenir les données }
+\inst{...}
+\inst{// traiter les données }
+\inst{...}
+\inst{// donner les résultats }
+\inst{...}
+\fin
+\framebreak
+\begin{itemize}
+\item Analyse globale $\rightarrow$ découpage du problème en sous-problèmes
+\item Les sous-problèmes doivent pouvoir être résolus \textbf{indépendamment} les uns des autres, au niveau d'analyse suivant. 
+\item Exemple : calcul de la longueur d'une ligne polygonale $\rightarrow$ fonction calculant la distance euclidienne entre deux points
+\end{itemize}
+}
+
+\subsection{Les fonctions en algorithmique}
+\frame[allowframebreaks]{
+  \frametitle{Analyse des sous-problèmes (p33)}
+  
+  \begin{itemize}
+  	\item Caractérisé chacun par \textbf{des entrées}, \textbf{des sorties} et \textbf{des traitements}.   
+  	\item Chacun est résolu par une \textbf{fonction} définie par~:
+		\begin{itemize}
+			\item son \textbf{nom}
+			\item sa \textbf{spécification}~:
+			\begin{itemize}
+				\item[.] liste des \textbf{paramètres}~: entrées du sous-problème données avec leurs types, noms et rôles,
+				\item[.] liste des \textbf{résultats}~: sorties du sous-problème données aussi avec leurs types, noms et rôles,
+			\end{itemize}
+			\item son \textbf{algorithme} qui décrit la façon d'obtenir les résultats. \\
+		\end{itemize}
+
+	\framebreak
+	\item \textbf{L'écriture de l'algorithme de la fonction}
+nécessite l'analyse du sous-problème qui peut à nouveau être découpé en différents sous-problèmes
+à traiter à un niveau d'analyse inférieur.
+	\item \textbf{Rôle des fonctions dans l'analyse descendante} : en premier lieu, écrire
+des algorithmes courts et clairs, mettant bien en évidence les étapes successives de la résolution d'un
+problème.
+	\item Une fonction permet de \textbf{regrouper des instructions qui sont utilisées
+plusieurs fois} et d'y faire appel à chaque fois que nécessaire, en l'adaptant au contexte.
+
+  \end{itemize}
+}
+  	
+\frame[allowframebreaks]{
+  \frametitle{Plan d'une fonction (p33)}
+
+\sprog{nomFonction}
+\prob{... // pour expliquer ce que fait la fonction }
+\princi{... // pour expliquer comment on procède pour résoudre le problème }
+\specif
+{\{liste résultats\}$\leftarrow$ nomFonction(liste paramètres)}
+{liste paramètres avec leurs types / noms / rôles}
+{liste résultats avec leurs types / noms / rôles}
+\framebreak
+\algo
+\norm{\varlocs}
+\decal{... // pour représenter les variables de la fonction }
+\debut
+\inst{// corps de la fonction }
+\inst{...}
+\inst{// renvoi des résultats }
+\inst{\renvoyer{liste des résultats}}
+\fin
+}
+
+
+\frame{
+  \frametitle{Remarques importantes (p34)}
+  
+  \begin{itemize}
+  	\item \textbf{La longueur d'un algorithme, entre les délimiteurs {\tt \souligne{début}} et {\tt \souligne{fin}}, ne doit pas excéder une page !}
+	\item \textbf{Bien faire apparaître le rôle des paramètres et résultats}
+	\item \textbf{Portée des variables locales} d'une fonction : la fonction
+	\item \textbf{Renvoi des résultats} : effectué une seule fois dans l'algorithme, et ceci en dernière instruction
+	\item Une fonction \textbf{peut ne comporter aucun paramètre}.
+	\item Une fonction \textbf{peut ne renvoyer aucun résultat}. 
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Importance de la spécification pour les échanges entre fonction appelante et fonction appelée (p36)}
+  
+  \begin{itemize}
+  	\item Appel d'une autre fonction depuis une fonction 
+	\item \textbf{Spécification} : ce qu'il faut connaître pour utiliser/écrire une fonction. 
+	\item Les échanges entre fonction appelante et fonction appelée se font par : 
+		\begin{itemize}
+			\item identification des \textbf{arguments} apparaissant dans la fonction appelante avec les paramètres correspondants de la fonction appelée ;
+			\item récupération des résultats renvoyés par la fonction appelée.
+		\end{itemize}
+	\item \alert{Les arguments et paramètres associés doivent coïncider en nombre, en ordre et en types.}
+
+  \end{itemize}
+}
+
+\subsection{Fonctions et sous-programmes en C}
+\frame{
+  \frametitle{Introduction (p62)}
+  
+  \begin{itemize}
+  	\item Un programme est composé de fonctions qui peuvent être écrites et compilées indépendamment les unes des autres.  
+	\item Fonction principale : nom réservé \texttt{main}, de type \texttt{int}
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Structure générale d'une fonction/sous-programme (p67)}
+  
+  \begin{itemize}
+	\item   {des commentaires de présentation}
+	\item   {des directives éventuelles d'inclusion de fichiers, placées après ces commentaires,}
+	\item {le {\em prototype} du sous-programme~: \\
+	{\tt unType nomDeSousProgramme(liste-paramètres)} }\index{paramètre de fonction}
+	\item   {le corps du sous-programme entre {\tt \{ } et~ {\tt \} }, }
+	\item   {s'il y a lieu, une instruction {\tt return} suivie du résultat renvoyé par le
+	sous-programme.\\}\Indextt{return}
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Echange d'informations entre fonctions (p63)}
+  
+  \begin{itemize}
+	\item Transmission d'informations entre fonction appelante et fonction appelée \textbf{via une liste de paramètres} (éventuellement vide). 
+	\item L'instruction \texttt{return} permet de renvoyer à la fonction appelante \textbf{au plus 1 valeur}.
+		\begin{itemize}
+			\item un seul \texttt{return} par sous-programme/fonction ;
+			\item le \texttt{return} doit être placé en dernière instruction, juste avant l'accolade fermante.
+		\end{itemize}
+	\item Cas où la fonction appelée ne doit rien renvoyer directement à la fonction appelante :
+		\begin{itemize}
+			\item déclaration de la fonction appelée comme étant de type \texttt{void} ;
+			\item pas d'instruction \texttt{return}.
+		\end{itemize}
+
+  \end{itemize}
+}
+
+
+\frame[allowframebreaks]{
+  \frametitle{Argument et paramètre (p63)}
+  
+  \begin{itemize}
+	\item \textbf{Argument} : information venant de la fonction appelante, transmise au sous-programme appelé en le faisant apparaître dans la liste des arguments. \\
+Peut être : constante, variable, expression, nom de fonction.
+	\item \textbf{Paramètre} : objet d'un sous-programme destiné à être associé à un argument lors de l'activation du sous-programme. 
+	Doit être déclaré dans la liste des paramètres du prototype du sous-programme. \\
+Peut être : variable, fonction.
+\end{itemize}
+
+\framebreak
+  \begin{itemize}
+	\item \alert{Prototype d'un sous-programme/fonction} : \textbf{nom et type} du sous-programme/fonction et de ses paramètres. 
+	\item \alert{Au moment de l'appel, arguments et paramètres doivent correspondre en
+  nombre et type, l'association se faisant un à un, dans l'ordre où ils sont écrits.}
+  
+  \end{itemize}
+}
+
+
+\frame{
+  \frametitle{Portée d'une variable (p63)}
+  
+  \begin{itemize}
+\item La \textbf{portée} représente la zone dans laquelle une variable est définie. 
+\item La portée d'une variable est~:
+\begin{itemize}
+\item   {\textbf{soit un fichier}, si elle est déclarée en début de fichier (avant toute accolade),}
+\item   {\textbf{une fonction}, si elle est déclarée après l'accolade commençant le corps de la fonction: {\em variable locale} à la fonction,}
+\item   {\textbf{un bloc d'instructions}, si elle est déclarée à l'intérieur d'un tel bloc, délimité par des accolades.}\\
+\end{itemize}
+
+  \item La portée d'un paramètre est le sous-programme dont il est paramètre.
+  
+  \end{itemize}
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Cas où une seule valeur est renvoyée (p64)}
+  
+Déclaration~: {\tt unType nomDeSousProgramme(liste-paramètres)} où le type {\tt unType} est soit un type scalaire simple ({\tt int, float, char, \ldots)} soit un enregistrement préalablement déclaré.   
+
+\framebreak
+
+\begin{tabular}{p{5cm}|l}
+\sprog{somme(a,b)}
+\debut
+\varloc\\
+\decal{\entier s}
+\decal{// corps du ss-prog }
+\decal{s $\leftarrow$ a+b}
+\decal{renvoyer s}
+\fin
+& 
+\normc{int somme(int a, int b)}
+& \normc{\{ }
+& \decal{int s;}
+& \decal{s = a + b;}
+& \decal{return s;}
+& \normc{\} }
+\end{tabular}
+
+\framebreak
+
+  \begin{itemize}
+	\item   {le résultat de l'exécution du sous-programme est renvoyé à la fonction appelante
+	par l'instruction {\tt return}.\Indextt{return|textbf} }
+	\item{les couples paramètres/arguments doivent servir uniquement à l'entrée
+	 ({\em passage par valeur}\index{paramètre de fonction!passage par valeur}). }
+  \end{itemize}
+
+}
+
+
+\subsubsection[Traduction en C d'une fonction renvoyant un type composé]{Traduction en C d'une fonction renvoyant un type composé}
+
+\frame[allowframebreaks]{
+  \frametitle{Lecture/écriture de variables de types composés (p52)}
+  
+\begin{itemize}
+\item En algorithmique, une fonction peut bien entendu \textbf{renvoyer un type composé}, que ce soit un vecteur ou un enregistrement. 
+\item En C :
+	\begin{itemize}
+		\item Possibilité pour une fonction de renvoyer directement un enregistrement (avec \texttt{return}) - exemple : obtention de l'article le plus cher d'une liste d'articles.
+		\item Impossibilité pour une fonction de renvoyer directement un tableau.
+	\end{itemize}
+\item Un argument de type tableau est automatiquement \textbf{passé par adresse} ("référence") en C $\rightarrow$ un tableau est modifiable par tout sous-programme auquel il est passé en argument $\rightarrow$ TD 4. 
+\end{itemize}
+}
+
+\subsubsection{Renvoi d'une seule valeur ou d'un enregistrement}
+
+\frame[allowframebreaks]{
+  \frametitle{Cas où une seule valeur est renvoyée (p64)}
+  
+Déclaration~: {\tt unType nomDeSousProgramme(liste-paramètres)} où le type {\tt unType} est soit un type scalaire simple ({\tt int, float, char, \ldots)} soit un enregistrement préalablement déclaré.   
+
+\framebreak
+
+\begin{tabular}{p{5cm}|l}
+\sprog{somme(a,b)}
+\debut
+\varloc\\
+\decal{\entier s}
+\decal{/ corps du ss-prog /}
+\decal{s $\leftarrow$ a+b}
+\decal{renvoyer s}
+\fin
+& 
+\normc{int somme(int a, int b)}
+& \normc{\{ }
+& \decal{int s;}
+& \decal{s = a + b;}
+& \decal{return s;}
+& \normc{\} }
+\end{tabular}
+
+\framebreak
+
+  \begin{itemize}
+	\item   {le résultat de l'exécution du sous-programme est renvoyé à la fonction appelante
+	par l'instruction {\tt return}.\Indextt{return|textbf} }
+	\item{les couples paramètres/arguments doivent servir uniquement à l'entrée
+	 ({\em passage par valeur}\index{paramètre de fonction!passage par valeur}). }
+  \end{itemize}
+
+}
+
+\subsubsection{Plusieurs valeurs et/ou un tableau renvoyés}
+
+\frame[allowframebreaks]{
+  \frametitle{Cas où plusieurs valeurs (ou un tableau) sont renvoyées (p66)}
+  
+Si la fonction renvoie un tableau et / ou plusieurs valeurs, sa traduction peut se faire~:
+\begin{itemize}
+\item soit en utilisant un nouveau type~;,
+\item  soit \textbf{en utilisant la possibilité de modifier certains des paramètres} : grâce à des pointeurs vers des variables $\rightarrow$ cf. TD 4. %ce que nous allons voir ici.
+\end{itemize}
+
+}
+
+\subsubsection{Méthodologie pour le choix de la traduction}
+
+\frame[allowframebreaks]{
+  \frametitle{Méthodologie pour le choix de la traduction (p68)}
+  
+  \begin{itemize}
+\item \textbf{Si la fonction renvoie une seule valeur de type {\tt UnType} simple ou enregistrement} : utiliser une fonction ayant pour type {\tt UnType}.
+\item \textbf{Si la fonction, dans sa spécification algorithmique, ne renvoie pas de valeur} : il faut utiliser
+une fonction de type {\tt void}.
+  \end{itemize}
+  Dans ces deux cas, les arguments doivent être passés \alert{par valeur}.
+
+\framebreak
+
+\textbf{Si la fonction renvoie plusieurs valeurs} : 
+\begin{itemize}
+  \item créer une structure pertinente au regard de l'application et renvoyer une variable de ce type ;
+  \item ou \textbf{utiliser une fonction de type} \texttt{void} (cf. TD 4) ;
+\end{itemize}
+}
+
+\frame{
+  \frametitle{Portée d'une variable (p63)}
+  
+  \begin{itemize}
+\item La \textbf{portée} représente la zone dans laquelle une variable est définie. 
+\item La portée d'une variable est~:
+\begin{itemize}
+\item   {\textbf{soit un fichier}, si elle est déclarée en début de fichier (avant toute accolade),}
+\item   {\textbf{une fonction}, si elle est déclarée après l'accolade commençant le corps de la fonction: {\em variable locale} à la fonction,}
+\item   {\textbf{un bloc d'instructions}, si elle est déclarée à l'intérieur d'un tel bloc, délimité par des accolades.}\\
+\end{itemize}
+
+  \item La portée d'un paramètre est le sous-programme dont il est paramètre.
+  
+  \end{itemize}
+}
+ 
+\section{Types composés en C}
+
+\frame{
+  \frametitle{Déclaration des types composés (p43)}
+  
+\begin{itemize}
+\item Plusieurs fa\c cons de déclarer les types composés 
+\item Mais \textbf{une seule méthode à retenir} ici :  utiliser le mot-clef {\tt typedef}.	
+\item \alert{Tout type composé doit \^etre déclaré \textbf{avant} d'\^etre utilisé !}
+\item Placer les déclarations de types en dehors de toute fonction. 
+\item Et, de préférence, dans un fichier \texttt{def.h} :
+	\begin{itemize}
+		\item dans lequel vous définirez tous les types nécessaires ;
+		\item que vous inclurez dans chacun des fichiers sources .c de votre programme : \texttt{\#}\texttt{include}  \texttt{"def.h"}
+	\end{itemize}
+\end{itemize}
+}
+
+\subsection{Tableaux}
+\frame[allowframebreaks]{
+  \frametitle{Déclaration des types tableaux (p43)}
+  
+\begin{itemize}
+\item Déclaration du type : 
+	\begin{itemize}
+		\item mot-clef {\tt typedef} 
+		\item suivi du type des éléments du tableau,
+		\item puis du nom du type défini.
+	\end{itemize}
+\item Intérêt de combiner la définition d'un tableau avec une constante pour définir sa taille maximale.
+\end{itemize}
+
+\framebreak
+
+\begin{tabular}{p{5cm}l}
+\type & \\
+\decal{\ty VectEnt : vecteur d'\entiers } & \normc{\#define NMAX 10}\\
+ & \normc{typedef int \ty VectEnt[NMAX] ;}\\
+ \decal{\ty MatReels : matrice de \reels  } & \normc{\#define M 10}\\
+ & \normc{typedef float \ty MatReels[M][M] ;}\\
+\decal{\ty Chaine : vecteur de \cars } & \normc{\#define MAXCAR 50}\\
+ & \normc{typedef char \ty Chaine[MAXCAR] ;}
+\end{tabular}
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Déclaration et manipulation des variables de types tableaux (p46)}
+  
+\begin{itemize}
+\item Indiquer simplement qu'une variable est d'un certain type : \\
+\normc{\ty VectEnt monVecteur;}
+\normc{\ty MatReels matReels;}
+\item \alert{Attention : en C, les indices commencent systématiquement à partir de 0 !}
+\item Autrement dit, pour la matrice de réels ci-dessus, les indices varient de 0 à 9~: de \texttt{matReels[0][0]} à \texttt{matReels[9][9]}.
+\item \alert{Bien en tenir compte dans vos boucles !}
+\end{itemize}
+
+\framebreak
+
+\begin{itemize}
+\item \textbf{Vecteur} : chaque élément est repéré par son indice placé entre crochets, après le nom du vecteur : {\tt v[i]=a;}
+\item \textbf{Matrice} : chaque élément est repéré par deux indices, chacun étant placé entre crochets
+à la suite du nom de la matrice :\\
+{\tt M[i][j] = 0.2 ;}
+
+\framebreak
+
+\item \textbf{Tableau de dimension supérieure à 2} : chaque élément est repéré par autant d'indices
+placés entre crochets à la suite du nom du tableau que le tableau a de dimensions : {\tt T[2][j][j+1]=5;}
+
+\end{itemize}
+}
+
+\subsection{Enregistrements}
+\frame[allowframebreaks]{
+  \frametitle{Déclaration et manipulation d'enregistrements (p44-48)}
+  
+\begin{itemize}
+\item Déclaration du type : 
+	\begin{itemize}
+		\item mot-clef {\tt typedef} 
+                \item mot-clef {\tt struct} 
+		\item suivi de la définition successive de tous les champs (peu importe leur ordre) ;
+		\item puis du nom du type défini.
+	\end{itemize}
+\item Possibilité de créer \textbf{des types composés de types composés}, tels que des tableaux d'enregistrements.
+\end{itemize}
+
+\framebreak
+
+\begin{tabular}{p{5cm}l}
+\type & \\
+\decal{\ty Article: \enreg}
+\decala{\entier reference}
+\decala{\ty Chaine libelle}
+\decala{\reel prix}
+\finenreg
+ & \normc{typedef struct \{}
+ & \decal{int reference;}
+ & \decal{\ty Chaine libelle;}
+ & \decal{float prix;}
+ & \normc{\} \ty Article;}
+\end{tabular}
+
+\framebreak
+
+Possibilité de définir alors le type vecteur d'articles dont chaque élément est de type {\tt \ty Article} :\\
+\normc{\#define MAXREF 100}
+{\tt typedef \ty Article \ty VectArticles[MAXREF];}
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Déclaration et manipulation des variables de types enregistrements (p48)}
+  
+\begin{itemize}
+\item Indiquer simplement qu'une variable est d'un certain type : \\
+\normc{\ty Article monArticle;}
+\item Accès aux différents champs de l'enregistrement via :
+  \begin{itemize}
+  	\item \texttt{monArticle.libelle}, de type \ty Chaine, permet d'accéder au libellé de l'article ;
+  	\item \texttt{monArticle.reference}, de type \entier, permet d'accéder à la référence de l'article ;
+	\item \texttt{monArticle.prix}, de type \reel, permet d'accéder au prix de l'article.
+    \end{itemize}
+\item Définition d'un vecteur d'éléments de type \ty Article :\\
+\normc{\ty VectArticle mesArticles;}
+\end{itemize}
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Compléments sur les mots-clefs typedef et struct}
+  
+\begin{itemize}
+\item Le mot-clef {\tt typedef} permet de définir des alias. \\
+\normc{typedef type\_deja\_existant alias\_a\_donner\_au\_type;}
+\item Exemple purement pédagogique :
+	\begin{itemize}
+	\item Déclaration de type :
+		\normc{typedef float f;}
+	\item Déclaration de variables : 
+        		\normc{f x,y,z;}
+	\end{itemize}
+\end{itemize}
+
+\framebreak
+
+\begin{itemize}
+\item {\tt struct} permet, lui, de \textbf{définir} de nouvelles structures. 
+\item La combinaison de {\tt typedef} et {\tt struct} est "purement" pratique : évite d'écrire {\tt struct} à chaque fois qu'on déclare une variable.
+\end{itemize}
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Affectation de variables de types composés (p53)}
+
+L'affectation d'une variable de type composé se fait~:
+\begin{itemize}
+\item {pour les tableaux, \alert{composante par composante}},
+\item {pour les enregistrements, \alert{en bloc pour toute la structure} \textbf{ou} \alert{champ par champ}.}\\
+\end{itemize}
+
+\framebreak
+
+Soient \texttt{v1} et \texttt{v2} deux vecteurs de type {\ty VectEnt} de taille n.\\
+En C, l'affectation \normc{v1 $\leftarrow$ v2} s'écrit :\\
+\normc{for (i=0;i$<$n;i=i+1) }
+\normc{\{ }
+\decal{v1[i]=v2[i];}
+\norm{\}}
+
+\framebreak
+Soient \texttt{monArticle} et \texttt{articleCourant} deux enregistrements de type {\ty Article}\\
+En C, l'affectation \normc{articleCourant $\leftarrow$ monArticle} peut s'écrire de deux manières :
+\begin{itemize}
+\item \normc{articleCourant.reference = monArticle.reference;}
+\normc{articleCourant.prix = monArticle.prix;}
+\normc{for (i=0;i$<$MAXCAR;i=i+1) \{}
+\decal{articleCourant.libelle[i] = monArticle.libelle[i];}
+\norm{\}}
+\item \normc{ArticleCourant = monArticle;}
+\end{itemize}
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Lecture/écriture de variables de types composés (p55-56)}
+  
+La lecture/écriture  d'une variable de type composé se fait~:
+\begin{itemize}
+\item {pour les tableaux, \alert{composante par composante}},
+\item {pour les enregistrements, \alert{champ par champ}.}\\
+\end{itemize}
+
+\framebreak
+\begin{itemize}
+\item  \texttt{v1} étant un vecteur de type {\ty VectEnt} de taille n, \normc{v1 $\leftarrow$ \lire{}} s'écrit en C :\\
+\normc{for (i=0;i$<$n;i=i+1)}
+\normc{\{ }
+\decal{scanf(''\%d'',v1[i]); /* lecture composante par composante */}
+\norm{\}}
+\item \texttt{monArticle} étant un enregistrement de type {\ty Article}, \\
+\texttt{monArticle $\leftarrow$ \lire{}} s'écrit en C :\\
+\normc{scanf(''\%d'',\&monArticle.reference);} 
+\normc{scanf(''\%s'',\&monArticle.libelle);} 
+\normc{scanf(''\%f'',\&monArticle.prix); }
+\end{itemize}
+
+\framebreak
+\begin{itemize}
+\item \texttt{v1} étant un vecteur de type {\ty VectEnt} de taille n, \normc{\ecrire{v1}} s'écrit en C :\\
+\normc{for (i=0;i$<$n;i=i+1)}
+\normc{\{ }
+\decal{printf(''\%d '',v2[i]);/}
+\norm{\}}
+\item \texttt{monArticle} étant un enregistrement de type {\ty Article}, \\
+\texttt{\ecrire{monArticle}} s'écrit en C :\\
+\normc{printf(''\%d '', mesArticles[1].reference);} 
+\normc{printf(''\%s '', mesArticles[1].libelle);}
+\normc{printf(''\%f '', mesArticles[1].prix); }
+\end{itemize}
+
+}
+
+\section{À préparer}
+\frame
+{
+  \frametitle{See you next week!}
+  
+  \begin{alertblock}{Pour le prochain TP}
+  Réviser tous les éléments vus jusque là : 
+  \begin{itemize}
+  \item Fonctions 
+  \item Traitement de files 
+  \end{itemize}
+  \end{alertblock}
+  
+  \begin{block}{Pour le prochain TD}
+  Comprendre et maîtriser les éléments suivants : 
+  \begin{itemize}
+  \item Découpage des fichiers source (chap. 12.4)
+  \item Pointeurs (chap. 10.3)
+  \end{itemize}  
+  \end{block}
+  
+}
+
+\end{document}

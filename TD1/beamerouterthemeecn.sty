@@ -1,0 +1,233 @@
+%By Frédéric Gelot
+%
+% This file may be distributed and/or modified
+%
+% 1. under the LaTeX Project Public License and/or
+% 2. under the GNU Public License.
+%
+% See the file doc/licenses/LICENSE for more details.
+
+\ProvidesPackageRCS $Header: /cvsroot/latex-beamer/latex-beamer/themes/outer/beamerouterthemeecn.sty,v 1.9 2007/01/28 20:48:30 tantau Exp $
+
+
+
+\mode<presentation>
+
+\setbeamercolor{section in head/foot}{parent=palette quaternary}
+\setbeamercolor{subsection in head/foot}{parent=palette primary}
+
+\setbeamercolor{author in head/foot}{parent=section in head/foot}
+\setbeamercolor{title in head/foot}{parent=subsection in head/foot}
+
+\setbeamercolor{titlepage in foot}{parent=subsection in head/foot}
+
+
+
+\usesectionheadtemplate
+{\hfill\insertsectionhead}
+{\hfill\color{fg!50!bg}\insertsectionhead}
+
+                               % Head
+\ifbeamer@compress
+
+\defbeamertemplate*{headline}{split theme}
+{%
+ \leavevmode%
+ \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex]{section in head/foot}%
+   \insertsectionnavigationhorizontal{.5\paperwidth}{\hskip0pt plus1filll}{}%
+ \end{beamercolorbox}%
+ \begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex]{subsection in head/foot}%
+   \insertsubsectionnavigationhorizontal{.5\paperwidth}{}{\hskip0pt plus1filll}%
+ \end{beamercolorbox}%
+}
+
+\else
+
+\defbeamertemplate*{headline}{split theme}
+{%
+ \leavevmode%
+ \@tempdimb=2.4375ex%
+ \ifnum\beamer@subsectionmax<\beamer@sectionmax%
+   \multiply\@tempdimb by\beamer@sectionmax%
+ \else%
+   \multiply\@tempdimb by\beamer@subsectionmax%
+ \fi%
+ \ifdim\@tempdimb>0pt%
+   \advance\@tempdimb by 1.125ex%
+   \begin{beamercolorbox}[wd=.5\paperwidth,ht=\@tempdimb]{section in head/foot}%
+     \vbox to\@tempdimb{\vfil\insertsectionnavigation{.5\paperwidth}\vfil}%
+   \end{beamercolorbox}%
+   \begin{beamercolorbox}[wd=.5\paperwidth,ht=\@tempdimb]{subsection in head/foot}%
+     \vbox to\@tempdimb{\vfil\insertsubsectionnavigation{.5\paperwidth}\vfil}%
+   \end{beamercolorbox}%
+ \fi%
+}
+
+\fi
+
+
+\defbeamertemplate*{footline}{split theme}
+{%
+\leavevmode%
+\hbox{\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm plus1fill,rightskip=.3cm]{author in head/foot}%
+  \usebeamerfont{author in head/foot}\insertshortauthor
+\end{beamercolorbox}%
+\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,leftskip=.3cm,rightskip=.3cm plus1fil]{title in head/foot}%
+  \usebeamerfont{title in head/foot}\insertshorttitle\hskip5pt\insertframenumber{}/\inserttotalframenumber
+  \vskip25pt
+	\hskip85pt
+	\begin{pgfpicture}
+		\pgfdeclareimage[height=3cm]{logo}{logo}
+		\pgfuseimage{logo}
+	\end{pgfpicture}
+	\vskip-25pt
+ \end{beamercolorbox}}
+	\vskip0pt%
+}
+
+
+
+
+\setbeamercolor{frametitle}{fg=black,bg=white}
+\setbeamercolor{frametitle right}{fg=black,bg=white}
+
+\setbeamertemplate{logo}{
+}
+
+\pgfdeclarehorizontalshading[frametitle.bg,frametitle right.bg]{beamer@frametitleshade}{\paperheight}{%
+ color(0pt)=(frametitle.bg);
+ color(\paperwidth)=(frametitle right.bg)}
+
+%\AtBeginDocument{
+% \pgfdeclareverticalshading{beamer@topshade}{\paperwidth}{%
+ %  color(0pt)=(bg);
+  % color(4pt)=(black!50!bg)}
+%}
+
+\addtobeamertemplate{headline}
+{}
+{%
+ \vskip-0.2pt
+ %\pgfuseshading{beamer@topshade}
+ \vskip-2pt
+}
+
+
+\defbeamertemplate*{frametitle}{shadow theme}
+{%
+	%\begin{pgfpicture}{0pt}{0pt}{8pt}{4pt}
+   %\pgfdeclareimage{titre}{imagetitre}
+	%\pgfuseimage{titre}
+  % \end{pgfpicture}
+ \nointerlineskip%
+ \vskip-2pt%
+ \hbox{
+ \leavevmode
+   \advance\beamer@leftmargin by -12bp%
+   \advance\beamer@rightmargin by -12bp%
+   \beamer@tempdim=\textwidth %
+   \advance\beamer@tempdim by \beamer@leftmargin%
+   \advance\beamer@tempdim by \beamer@rightmargin%
+   \hskip-\Gm@lmargin
+   \hskip-10pt
+	\hbox{%
+     \setbox\beamer@tempbox=\hbox{\begin{minipage}[b]{\paperwidth}%
+
+			
+         \vbox{}\vskip-.75ex%
+		\hskip-30pt
+         \vskip-33pt
+       \pgfdeclareimage[height=1.3cm]{titre}{titre}  
+		
+		%\pgfputat{\pgfxy(0,0)}{\pgfbox[left,base]{\pgfimage[height=1.5cm]{titre}}}
+		\pgfuseimage{titre}
+		
+		\vskip-18pt
+		\hskip30pt
+         \leftskip0.3cm%
+         \rightskip0.3cm plus1fil\leavevmode
+         \insertframetitle %
+         \ifx\insertframesubtitle\@empty%
+           \strut\par%
+         \else
+           \par{\usebeamerfont*{framesubtitle}{\usebeamercolor[fg]{framesubtitle}\insertframesubtitle}\strut\par}%
+         \fi%
+         \nointerlineskip
+         \vbox{}%
+         \end{minipage}}%
+     \beamer@tempdim=\ht\beamer@tempbox%
+     \advance\beamer@tempdim by 2pt%
+     \begin{pgfpicture}{0pt}{0pt}{\paperwidth}{\beamer@tempdim}
+       \usebeamercolor{frametitle right}
+       \pgfpathrectangle{\pgfpointorigin}{\pgfpoint{\paperwidth}{\beamer@tempdim}}
+       \pgfusepath{clip}
+       %\pgftext[left,base]{\pgfuseshading{beamer@frametitleshade}}
+     \end{pgfpicture}
+     \hskip-\paperwidth%
+     \box\beamer@tempbox%
+   }%
+   \hskip-\Gm@rmargin%
+ }%
+ \nointerlineskip
+   %\vskip-0.2pt
+   %\hbox to\textwidth{\hskip-\Gm@lmargin\pgfuseshading{beamer@topshade}\hskip-\Gm@rmargin}
+   %\vskip-2pt
+}
+
+\addtobeamertemplate{footline}{}{
+	\setbeamertemplate{logo}{
+	\insertlogo
+
+	}
+}
+
+\setbeamertemplate{title page}
+{
+       \pgfdeclareimage[width=\paperwidth]{toptitle}{firstpage} 
+      	\pgfdeclareimage[height=1.5cm]{logo_centrale_nantes}{logo_centrale_nantes}  
+	
+	
+	\hskip-29pt
+	%\vskip4pt
+	\begin{pgfpicture}
+		%\pgfputat{\pgfxy(0,-5)}{\pgfbox[left,top]{\pgfimage[]{toptitle}}}
+		\pgfuseimage{toptitle}
+	\end{pgfpicture}
+	%\hskip-30pt
+	\vskip-27pt
+	
+	
+	%\vskip5pt plus 1filll
+	%\hskip-20pt
+	
+	\begin{center}
+	%\hskip-20pt
+	\pgfputat{\pgfxy(-0.5,-2.4)}{\pgfbox[left,base]{\pgfimage[height=1.5cm]{logo_centrale_nantes}}}
+	%\pgfuseimage{logoecn}
+	\vskip30pt
+	\usebeamerfont{title}\usebeamercolor[bg]{title}
+	\inserttitle
+	\end{center}
+	\begin{center}
+	%\hskip-20pt
+	\usebeamerfont{title}\usebeamercolor[bg]{title}
+	\insertdate
+	\end{center}
+	\vskip30pt %plus 1filll
+	\begin{beamercolorbox}[wd=\paperwidth,ht=2.5ex,dp=1.125ex]{titlepage in foot}
+	%	\usebeamerfont{blue!60!black}
+		 %\vskip20pt
+	\hskip.5\paperwidth
+		\hskip85pt
+		\begin{pgfpicture}
+			\pgfdeclareimage[height=3cm]{logo}{logo}
+			\pgfuseimage{logo}
+		\end{pgfpicture}
+		\vskip-15pt
+	\end{beamercolorbox}%%
+	\vskip-195pt
+}
+
+
+\mode
+<all>

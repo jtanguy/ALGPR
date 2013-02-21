@@ -1,0 +1,287 @@
+%!PS-Adobe-2.0 EPSF-2.0
+%%Title: compil.pstex
+%%Creator: fig2dev Version 3.2 Patchlevel 1
+%%CreationDate: Thu May 25 11:51:49 2000
+%%For: roux@neptune (Olivier Roux)
+%%Orientation: Portrait
+%%BoundingBox: 0 0 433 197
+%%Pages: 0
+%%BeginSetup
+%%EndSetup
+%%Magnification: 0.6800
+%%EndComments
+/$F2psDict 200 dict def
+$F2psDict begin
+$F2psDict /mtrx matrix put
+/col-1 {0 setgray} bind def
+/col0 {0.000 0.000 0.000 srgb} bind def
+/col1 {0.000 0.000 1.000 srgb} bind def
+/col2 {0.000 1.000 0.000 srgb} bind def
+/col3 {0.000 1.000 1.000 srgb} bind def
+/col4 {1.000 0.000 0.000 srgb} bind def
+/col5 {1.000 0.000 1.000 srgb} bind def
+/col6 {1.000 1.000 0.000 srgb} bind def
+/col7 {1.000 1.000 1.000 srgb} bind def
+/col8 {0.000 0.000 0.560 srgb} bind def
+/col9 {0.000 0.000 0.690 srgb} bind def
+/col10 {0.000 0.000 0.820 srgb} bind def
+/col11 {0.530 0.810 1.000 srgb} bind def
+/col12 {0.000 0.560 0.000 srgb} bind def
+/col13 {0.000 0.690 0.000 srgb} bind def
+/col14 {0.000 0.820 0.000 srgb} bind def
+/col15 {0.000 0.560 0.560 srgb} bind def
+/col16 {0.000 0.690 0.690 srgb} bind def
+/col17 {0.000 0.820 0.820 srgb} bind def
+/col18 {0.560 0.000 0.000 srgb} bind def
+/col19 {0.690 0.000 0.000 srgb} bind def
+/col20 {0.820 0.000 0.000 srgb} bind def
+/col21 {0.560 0.000 0.560 srgb} bind def
+/col22 {0.690 0.000 0.690 srgb} bind def
+/col23 {0.820 0.000 0.820 srgb} bind def
+/col24 {0.500 0.190 0.000 srgb} bind def
+/col25 {0.630 0.250 0.000 srgb} bind def
+/col26 {0.750 0.380 0.000 srgb} bind def
+/col27 {1.000 0.500 0.500 srgb} bind def
+/col28 {1.000 0.630 0.630 srgb} bind def
+/col29 {1.000 0.750 0.750 srgb} bind def
+/col30 {1.000 0.880 0.880 srgb} bind def
+/col31 {1.000 0.840 0.000 srgb} bind def
+
+end
+save
+-36.0 230.0 translate
+1 -1 scale
+
+/cp {closepath} bind def
+/ef {eofill} bind def
+/gr {grestore} bind def
+/gs {gsave} bind def
+/sa {save} bind def
+/rs {restore} bind def
+/l {lineto} bind def
+/m {moveto} bind def
+/rm {rmoveto} bind def
+/n {newpath} bind def
+/s {stroke} bind def
+/sh {show} bind def
+/slc {setlinecap} bind def
+/slj {setlinejoin} bind def
+/slw {setlinewidth} bind def
+/srgb {setrgbcolor} bind def
+/rot {rotate} bind def
+/sc {scale} bind def
+/sd {setdash} bind def
+/ff {findfont} bind def
+/sf {setfont} bind def
+/scf {scalefont} bind def
+/sw {stringwidth} bind def
+/tr {translate} bind def
+/tnt {dup dup currentrgbcolor
+  4 -2 roll dup 1 exch sub 3 -1 roll mul add
+  4 -2 roll dup 1 exch sub 3 -1 roll mul add
+  4 -2 roll dup 1 exch sub 3 -1 roll mul add srgb}
+  bind def
+/shd {dup dup currentrgbcolor 4 -2 roll mul 4 -2 roll mul
+  4 -2 roll mul srgb} bind def
+/$F2psBegin {$F2psDict begin /$F2psEnteredState save def} def
+/$F2psEnd {$F2psEnteredState restore end} def
+%%EndProlog
+
+$F2psBegin
+10 setmiterlimit
+n -1000 6637 m -1000 -1000 l 12487 -1000 l 12487 6637 l cp clip
+ 0.04080 0.04080 sc
+% Polyline
+7.500 slw
+n 975 3300 m 2850 3300 l 2850 4275 l 975 4275 l cp gs col0 s gr 
+% Polyline
+30.000 slw
+gs  clippath
+4207 3795 m 4351 3825 l 4207 3855 l 4470 3855 l 4470 3795 l cp
+clip
+n 2850 3825 m 4425 3825 l gs col0 s gr gr
+
+% arrowhead
+n 4207 3795 m 4351 3825 l 4207 3855 l 4231 3825 l 4207 3795 l  cp gs 0.00 setgray ef gr  col0 s
+/Times-Roman ff 180.00 scf sf
+1125 3525 m
+gs 1 -1 sc (int fct \(int n\)) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+1125 3765 m
+gs 1 -1 sc ({) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+1125 4005 m
+gs 1 -1 sc (...) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+1125 4245 m
+gs 1 -1 sc (}) col0 sh gr
+/Times-BoldItalic ff 240.00 scf sf
+2925 3600 m
+gs 1 -1 sc (compilation) col0 sh gr
+% Polyline
+gs  clippath
+4207 1695 m 4351 1725 l 4207 1755 l 4470 1755 l 4470 1695 l cp
+clip
+n 2850 1725 m 4425 1725 l gs col0 s gr gr
+
+% arrowhead
+n 4207 1695 m 4351 1725 l 4207 1755 l 4231 1725 l 4207 1695 l  cp gs 0.00 setgray ef gr  col0 s
+% Polyline
+7.500 slw
+n 975 1275 m 2850 1275 l 2850 2250 l 975 2250 l cp gs col0 s gr 
+% Polyline
+30.000 slw
+gs  clippath
+4207 5070 m 4351 5100 l 4207 5130 l 4470 5130 l 4470 5070 l cp
+clip
+n 1275 5100 m 4425 5100 l gs col0 s gr gr
+
+% arrowhead
+n 4207 5070 m 4351 5100 l 4207 5130 l 4231 5100 l 4207 5070 l  cp gs 0.00 setgray ef gr  col0 s
+% Polyline
+7.500 slw
+n 975 2550 m 2850 2550 l 2850 2925 l 975 2925 l cp gs col0 s gr 
+% Polyline
+n 4425 1200 m 5775 1200 l 5775 2250 l 4425 2250 l cp gs col0 s gr 
+% Polyline
+n 4425 4575 m 5775 4575 l 5775 5625 l 4425 5625 l cp gs col0 s gr 
+% Polyline
+n 4425 2550 m 5775 2550 l 5775 2925 l 4425 2925 l cp gs col0 s gr 
+% Polyline
+n 4425 3225 m 5775 3225 l 5775 4275 l 4425 4275 l cp gs col0 s gr 
+% Polyline
+30.000 slw
+gs  clippath
+8278 2528 m 8405 2601 l 8259 2585 l 8508 2668 l 8527 2611 l cp
+clip
+n 5775 1725 m 8475 2625 l gs col0 s gr gr
+
+% arrowhead
+n 8278 2528 m 8405 2601 l 8259 2585 l 8291 2564 l 8278 2528 l  cp gs 0.00 setgray ef gr  col0 s
+% Polyline
+7.500 slw
+n 8475 2025 m 11475 2025 l 11475 4500 l 8475 4500 l cp gs col0 s gr 
+% Polyline
+30.000 slw
+gs  clippath
+8263 4031 m 8407 4003 l 8286 4086 l 8528 3985 l 8505 3930 l cp
+clip
+n 5775 5100 m 8475 3975 l gs col0 s gr gr
+
+% arrowhead
+n 8263 4031 m 8407 4003 l 8286 4086 l 8296 4049 l 8263 4031 l  cp gs 0.00 setgray ef gr  col0 s
+% Polyline
+gs  clippath
+8255 3450 m 8402 3460 l 8264 3510 l 8524 3474 l 8515 3414 l cp
+clip
+n 5775 3825 m 8475 3450 l gs col0 s gr gr
+
+% arrowhead
+n 8255 3450 m 8402 3460 l 8264 3510 l 8283 3477 l 8255 3450 l  cp gs 0.00 setgray ef gr  col0 s
+% Polyline
+ [120 60 15 60] 0 sd
+gs  clippath
+4207 2670 m 4351 2700 l 4207 2730 l 4470 2730 l 4470 2670 l cp
+clip
+n 2850 2700 m 4425 2700 l gs col0 s gr gr
+ [] 0 sd
+% arrowhead
+n 4207 2670 m 4351 2700 l 4207 2730 l 4231 2700 l 4207 2670 l  cp gs 0.00 setgray ef gr  col0 s
+% Polyline
+ [120 60 15 60] 0 sd
+gs  clippath
+8264 3015 m 8402 3064 l 8255 3075 l 8515 3111 l 8524 3051 l cp
+clip
+n 5775 2700 m 8475 3075 l gs col0 s gr gr
+ [] 0 sd
+% arrowhead
+n 8264 3015 m 8402 3064 l 8255 3075 l 8283 3048 l 8264 3015 l  cp gs 0.00 setgray ef gr  col0 s
+/Courier ff 240.00 scf sf
+975 975 m
+gs 1 -1 sc (Codes source) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+1125 1500 m
+gs 1 -1 sc (void main \(\)) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+1125 1740 m
+gs 1 -1 sc ({) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+1125 1980 m
+gs 1 -1 sc (...) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+1125 2220 m
+gs 1 -1 sc (}) col0 sh gr
+/Times-BoldItalic ff 240.00 scf sf
+2925 1575 m
+gs 1 -1 sc (compilation) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+1200 2775 m
+gs 1 -1 sc (......) col0 sh gr
+/Courier ff 240.00 scf sf
+4350 975 m
+gs 1 -1 sc (Codes objet) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+4500 1425 m
+gs 1 -1 sc (1101010111010) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+4500 1665 m
+gs 1 -1 sc (0010010001011) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+4500 1905 m
+gs 1 -1 sc (1010101000111) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+4500 2145 m
+gs 1 -1 sc (1000101001010) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+4500 3450 m
+gs 1 -1 sc (0001101010101) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+4500 3690 m
+gs 1 -1 sc (1001001101110) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+4500 3930 m
+gs 1 -1 sc (1010000100111) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+4500 4875 m
+gs 1 -1 sc (1010111100101) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+4500 5115 m
+gs 1 -1 sc (0010001100010) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+4500 5355 m
+gs 1 -1 sc (0101000100111) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+4500 5595 m
+gs 1 -1 sc (1011001110001) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+4650 2775 m
+gs 1 -1 sc (......) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+8625 2325 m
+gs 1 -1 sc (10100010110101001100101010010) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+8625 2565 m
+gs 1 -1 sc (10001010010010001110101101101) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+8625 2805 m
+gs 1 -1 sc (00001010011010100100010110101) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+8625 3045 m
+gs 1 -1 sc (10100101000101010101010101010) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+8625 3285 m
+gs 1 -1 sc (11111010010101001010101010100) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+8625 3525 m
+gs 1 -1 sc (10010010001001010101010110010) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+8625 3765 m
+gs 1 -1 sc (01001010101010101000100001111) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+8625 4005 m
+gs 1 -1 sc (01001001010100100101000111001) col0 sh gr
+/Times-Roman ff 180.00 scf sf
+8625 4245 m
+gs 1 -1 sc (00001000101110110101011001101) col0 sh gr
+$F2psEnd
+rs
