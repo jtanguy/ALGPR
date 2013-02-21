@@ -1,0 +1,672 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%                                                                        %%
+%%                 Support de cours Algorithmique et Programmation                  %%
+%%                                                                        %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Morgan Magnin (Centrale Nantes)
+%% création : 10/09/2005
+%% dernière modification : 10/09/2005
+%% historique :
+%% génération du postscript : dvips -t a4 -t landscape -o toto.ps toto
+%% génération du pdf : pdflatex toto
+
+%% il faut fixer l'URL base pour que les liens relatifs fonctionnent...
+%% bizaremment fichu mais c'est comme ça.
+
+
+
+\documentclass[handout]{beamer}
+
+
+\mode<article> % only for the article version
+{
+  \usepackage{fullpage}
+  \usepackage{hyperref}
+}
+
+
+\mode<presentation>
+{
+  \setbeamertemplate{background canvas}[vertical shading][bottom=red!10,top=blue!10]
+
+  \usetheme{ECN}
+  \usefonttheme[onlysmall]{structurebold}
+}
+
+\usepackage{pgf,pgfarrows,pgfnodes,pgfautomata,pgfheaps,pgfshade}
+\usepackage{amsmath,amssymb}
+\usepackage[latin1]{inputenc}
+\usepackage{colortbl}
+%\usepackage[french]{babel}
+\usepackage{multirow,slashbox}
+
+%\usepackage{lmodern}
+%\usepackage[T1]{fontenc} 
+
+\usepackage{times}
+
+\setbeamercovered{dynamic}
+\setbeamersize{description width of={ }}
+
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{graphicx} 
+%\usepackage{epsfig}
+\usepackage{xspace}
+\usepackage{stmaryrd}
+\usepackage{gastex}
+\usepackage[latin1]{inputenc}   %accents 8 bits dans le source
+\usepackage[english]{algorithme}
+%\usepackage[T1]{fontenc} %pour un beau PDF sous Linux ; à retirer sous Mac 
+%\usepackage[french]{babel}
+%\usepackage{beamerthemesplit}
+%\usetheme[compress,secheader]{Madrid}
+%\usecolortheme{mybeetle}
+\definecolor{newcolor}{rgb}{0, 0, .90}
+\definecolor{impcolor}{rgb}{.90, 0, 0}
+\newcommand{\New}[1]{\textcolor{newcolor}{#1}}
+\newcommand{\Imp}[1]{\textcolor{impcolor}{#1}}
+\newcommand{\ie}{\emph{i.e.}\xspace}
+\newcommand{\To}[1]{\stackrel{#1}{\rightarrow}}
+\newcommand{\setN}{\mathbb N} % à utiliser en mode mathématique
+\newcommand{\setR}{\mathbb R} % à utiliser en mode mathématique
+\newcommand{\setB}{\mathbb B} % à utiliser en mode mathématique
+\newcommand{\setZ}{\mathbb Z} % à utiliser en mode mathématique
+\newcommand{\setQ}{\mathbb Q} % à utiliser en mode mathématique
+\newbox\soulbox% nouvelle boite
+\newcommand{\souligne}[1]{%
+\setbox\soulbox\hbox{#1}% memorisation du texte dans la boite
+#1% affichage du texte
+\hskip-\wd\soulbox% deplacement de la largeur du texte vers la gauche
+\lower1pt\hbox{\rule{\wd\soulbox}{.1mm}}% affichage d'une barre de 1/10 de mm
+                                        % a 1pt sous le texte et de la largeur
+                                        % de ce texte
+}
+%------ Commandes spécifiques -------
+\newcommand{\ii}{\^{\i}}%---- \ii = î
+
+\newlength{\comlen}
+\newbox\combox
+
+\newcommand{\commenta}[2]{%
+\setbox\combox\hbox{#1}
+\setlength{\comlen}{0pt}
+\addtolength{\comlen}{\wd\combox}
+\addtolength{\comlen}{-\linewidth}
+\noindent{#1}\hspace*{2mm}\begin{minipage}[t]{-\comlen}{/* #2 */}\end{minipage}
+}
+\newcommand{\commentz}[2]{%
+\setbox\combox\hbox{#1}
+\setlength{\comlen}{0pt}
+\addtolength{\comlen}{\wd\combox}
+\addtolength{\comlen}{-\linewidth}
+\noindent{#1}\hspace*{2mm}\begin{minipage}[t]{-\comlen}{/~#2~/}\end{minipage}
+}
+
+\def\dest{}
+\def\destina{}
+\def\titre{concernant \dest}
+%----------------------------------
+
+
+%-------- Pour l'index ------------
+\newcommand{\Indexttrepete}[1]{\texttt{#1}\index{#1@\texttt{#1}}}
+\newcommand{\Indextt}[1]{\index{#1@\texttt{#1}}}
+\newcommand{\Indexttbf}[1]{\index{#1@\texttt{#1}|textbf}}
+%------------Les mots clés --------
+\newcommand{\const}{\noindent {\tt \souligne{constante}}}
+\newcommand{\var}{\noindent {\tt \souligne{variable}}}
+\newcommand{\varloc}{\noindent {\tt \souligne{variable locale}}}
+\newcommand{\type}{\noindent {\tt \souligne{type}}}
+\newcommand{\reel}{{\tt \souligne{réel}} }
+\newcommand{\entier}{{\tt \souligne{entier}} }
+\newcommand{\car}{{\tt \souligne{caractère}} }
+\newcommand{\bool}{{\tt \souligne{booléen}} }
+%
+\newcommand{\consts}{\noindent {\tt \souligne{constantes}}}
+\newcommand{\vars}{\noindent {\tt \souligne{variables}}}
+\newcommand{\varlocs}{\noindent {\tt \souligne{variables locales}}}
+\newcommand{\types}{\noindent {\tt \souligne{types}}}
+\newcommand{\reels}{{\tt \souligne{réels}} }
+\newcommand{\entiers}{{\tt \souligne{entiers}} }
+\newcommand{\cars}{{\tt \souligne{caractères}} }
+\newcommand{\bools}{{\tt \souligne{booléens}} }
+%
+\newcommand{\et}{{\tt \souligne{et}} }
+\newcommand{\ou}{{\tt \souligne{ou}} }
+\newcommand{\non}{{\tt \souligne{non}} }
+%
+\newcommand{\vecteur}{{\tt \souligne{vecteur}} }
+\newcommand{\matrice}{{\tt \souligne{matrice}} }
+\newcommand{\tableau}{{\tt \souligne{tableau}} }
+%
+\newcommand{\vecteurs}{{\tt \souligne{vecteurs}} }
+\newcommand{\matrices}{{\tt \souligne{matrices}} }
+\newcommand{\tableaux}{{\tt \souligne{tableaux}} }
+%
+\newcommand{\sousfonction}{fonction}
+\newcommand{\sousfonctions}{fonctions}
+\newcommand{\fonction}{fonction}
+\newcommand{\fonctions}{fonctions}
+%
+\newcommand{\prog}{\noindent {\tt \souligne{fonction principale}}\\ }
+\newcommand{\sprog}[1]{\noindent {\tt \souligne{fonction} {#1} }\\}
+%\newcommand{\action}[1]{\noindent {\tt \souligne{action} {#1} }\\}
+\newcommand{\prob}[1]{\noindent {\tt \souligne{problème}~:} {#1} \\}
+\newcommand{\princi}[1]{\noindent {\tt \souligne{principe}~:} {#1} \\}
+%
+\newcommand{\specifp}[2]{\noindent{\tt \souligne{spécification}~:  }\\
+\hspace*{5mm}\begin{tabular}{ll}
+\souligne{{\tt constantes}}~: & \begin{minipage}[t]{135mm}
+                                  {{#1}}   \end{minipage}\\
+\souligne{{\tt types}}~: & \begin{minipage}[t]{135mm}
+                                  {{#2}}   \end{minipage}\\
+\end{tabular}\\}
+%
+\newcommand{\specif}[3]{\noindent{\tt \souligne{spécification}~:  }\\
+\hspace*{5mm}\begin{tabular}{ll}
+\souligne{{\tt fonction}}~: & \begin{minipage}[t]{135mm}
+                                  {{#1}}   \end{minipage}\\
+\souligne{{\tt paramètres}}~: & \begin{minipage}[t]{135mm}
+                                  {{#2}}   \end{minipage}\\
+\souligne{{\tt résultats}}~: & \begin{minipage}[t]{135mm}
+                                  {{#3}}   \end{minipage}\\
+\end{tabular} \\
+}
+%
+\newcommand{\specifaction}[3]{\noindent{\tt \souligne{spécification}~:  }\\
+\hspace*{5mm}\begin{tabular}{ll}
+\souligne{{\tt action}}~: & \begin{minipage}[t]{135mm}
+                                  {{#1}}   \end{minipage}\\
+\souligne{{\tt paramètres}}~: & \begin{minipage}[t]{135mm}
+                                  {{#2}}   \end{minipage}\\
+\souligne{{\tt résultat}}~: & \begin{minipage}[t]{135mm}
+                                  {{#3}}   \end{minipage}\\
+\end{tabular} \\
+}
+%
+%\newcommand{\varloc}[1]{\souligne{{\tt variables locales}}\\ \hspace*{5mm} {\tt #1}}
+\newcommand{\debut}{\noindent\souligne{{\tt début}}\\}
+\newcommand{\fin}{\noindent\souligne{{\tt fin}}\\}
+%
+\newcommand{\vardecal}[1]{\hspace*{10mm}{#1}\\}
+%
+\newcommand{\enreg}{\souligne{{\tt Enregistrement}}\\}
+\newcommand{\finenreg}{\souligne{{\tt Fin\_enregistrement}}\\}
+%
+\newcommand{\norm}[1]{\noindent{\tt {#1}}\\ }
+\newcommand{\normc}[1]{\noindent{\tt {#1}}\\ }
+\newcommand{\decal}[1]{\noindent {\tt
+\hspace*{5mm} \begin{minipage}[t]{155mm}
+                                  {{#1}} \end{minipage}
+                        }\\ }
+\newcommand{\decalc}[1]{\noindent{\tt \hspace*{5mm} \begin{minipage}[t]{155mm}
+                                  {{#1}}
+                                  \end{minipage}
+                        }\\ }
+\newcommand{\decala}[1]{{\tt \hspace*{20mm} \begin{minipage}[t]{135mm}
+                                  {{#1}}  \end{minipage}
+                        }\\ }
+\newcommand{\decalb}[1]{{\tt \hspace*{30mm} \begin{minipage}[t]{120mm}
+                                  {{#1}}
+                                  \end{minipage}
+                        }\\ }
+\newcommand{\decald}[1]{{\tt \hspace*{40mm} \begin{minipage}[t]{110mm}
+                                  {{#1}}
+                                  \end{minipage}
+                        }\\ }
+%
+\newcommand{\inst}[1]{\noindent{\tt ~|~~ {#1}}\\ }
+\newcommand{\instr}[1]{\noindent{\tt ~|~~~|~~ {#1}}\\ }
+\newcommand{\instru}[1]{\noindent{\tt ~|~~~|~~~|~~ {#1}}\\ }
+\newcommand{\instruc}[1]{\noindent{\tt ~|~~~|~~~|~~~|~~ {#1}}\\ }
+\newcommand{\instruct}[1]{\noindent{\tt ~|~~~|~~~|~~~|~~~|~~ {#1}}\\ }
+\newcommand{\instructi}[1]{\noindent{\tt ~|~~~|~~~|~~~|~~~|~~~|~~ {#1}}\\ }
+%
+\newcommand{\pour}[2]{{\tt \souligne{pour} {~#1~} \souligne{à} {~#2~} \souligne{faire} }}
+\newcommand{\finpour}{{\tt \souligne{fin pour} }}
+%
+\newcommand{\si}[1]{{\tt \souligne{si} {~#1~} \souligne{alors}}}
+\newcommand{\finsi}{{\tt \souligne{fin si}}}
+\newcommand{\sinon}{{\tt \souligne{sinon}}}
+%
+\newcommand{\tantque}[1]{{\tt \souligne{tant que} {~#1~} \souligne{faire} }}
+\newcommand{\fintantque}{{\tt \souligne{fin tant que} }}
+%
+\newcommand{\choixselon}{{\tt \souligne{choix selon}~:}}
+\newcommand{\finchoixselon}{{\tt \souligne{fin choix selon}}}
+%
+\newcommand{\lire}[1]{{\tt \souligne{lire}{~(#1)}}}
+\newcommand{\ecrire}[1]{{\tt \souligne{écrire}{~(#1)}}}
+\newcommand{\renvoyer} [1]{{\tt \souligne{renvoyer}{~#1} }}
+%
+\newcommand{\bl}{$\flat$}
+%
+\newcommand{\algo}{\noindent{\tt\fbox{algorithme}}\\}
+\newcommand{\cc}{\noindent{\textsf\fbox{C}}\\}
+\newcommand{\ccp}{\noindent{\textsf\fbox{C++}}\\}
+\newcommand{\ccc}{{\textsf C/C++ } }
+\newcommand{\boitsoul}[1]{\noindent\fbox{#1}}
+%
+\newcommand{\remarque}{\noindent{\em Remarque}~:~}
+\newcommand{\remarques}{\noindent{\em Remarques}~:~}
+%
+\newcommand{\attention}{\noindent{\em Attention}~:~}
+%
+\newcommand{\exemplei}[1]{\noindent{\em Exemple~#1}~:\\}
+\newcommand{\exemple}{\noindent{\em Exemple}~:\\}
+\newcommand{\exemples}{\noindent{\em Exemples}~:\\}
+%
+\newcommand{\parag}[1]{\medskip\noindent{\textbf{\em #1}}~:\\}
+%
+\newcommand{\ty}{t\_}
+%
+\newcommand{\uu}[1]{souligne{#1}}
+\newtheorem{condition}{Condition}
+
+\title[Types structurés/Files]{Types structurés et traitements de files}
+\author[Morgan Magnin]{\textbf{Morgan Magnin} \\ Bureau E214 \\ 
+\texttt{morgan.magnin@irccyn.ec-nantes.fr}}
+%\url{http://www.irccyn.ec-nantes.fr/~magnin/}}
+\institute[Centrale Nantes]{
+  Ecole Centrale de Nantes \\
+  1, rue de la No\"{e} \\
+  B.P. 92101 \\
+  44321 Nantes Cedex 3 \\
+  France}
+\date{Février 2012}
+
+\AtBeginSection[] % Do nothing for \section*
+{ 
+\frame<beamer> 
+	{ 
+	\frametitle{Sommaire} 
+	\tableofcontents[current]
+	} 
+}
+
+\begin{document}
+
+\frame{\titlepage}
+
+%\section[Table of contents]{}
+\frame{\tableofcontents}
+
+\section{Introduction}
+
+\frame
+{
+  \frametitle{Pourquoi programmer ?}
+\begin{itemize}
+	\item Répondre à des besoins, \ie :
+	\begin{itemize}
+		\item Résoudre un problème exprimé dans un langage compréhensible par l'ordinateur 
+		\item Effectuer un traitement automatisé des données 
+		\item \dots
+	\end{itemize}
+	\item Grande variété de besoins :
+		\begin{itemize}
+			\item Commande de machines
+			\item Secteur bancaire 
+			\item Industrie du loisir
+			\item Calcul scientifique
+			\item \dots
+	\end{itemize}
+\end{itemize}
+}
+
+\frame{
+  \frametitle{Objectifs en termes de connaissances}
+  
+  \begin{itemize}
+	\item Les principales structures de données
+  	\item Structures algorithmiques
+	\item Langage C
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Objectifs en termes de compétences}
+  
+  \begin{itemize}
+	\item Pratiquer une analyse descendante 
+	  \begin{itemize}
+		\item Écrire les spécifications
+		\item Raccorder un programme à des parties déjà existantes
+	\end{itemize}
+  	\item Formaliser algorithmiquement une démarche de résolution
+	\item Choisir des structures de données appropriées
+	\item Valider un programme (tests) 
+  	\item Programmer en C
+  \end{itemize}
+}
+
+\frame
+{
+   \frametitle{Modalités}
+\begin{itemize}
+	\item Répartition du volume horaire
+	\begin{itemize}
+		\item 1 CM de 2h 
+		\item 5 séances de 2h de TD (10h)
+		\item 5 séances de 2 ou 4h de TP (16h)
+		\item 4h de TA
+		\item 2h de DS   
+	\end{itemize}
+ \item \'Evaluation
+\begin{itemize}
+	\item 1 note de DS  ~~{\small {\color{red} (Coef. 1)}}
+	\item 1 validation de TP %(comprenant 4 TP + 1 TA) ~~{\small {\color{red} (Coef. 2)}}
+	\item 1 validation de TA
+\end{itemize}
+  \item TP : en binôme, encadrés par deux enseignants :
+  \begin{itemize}
+    \item \texttt{Morgan.Magnin@irccyn.ec-nantes.fr}
+    \item \texttt{Eric.Le-Carpentier@irccyn.ec-nantes.fr}
+  \end{itemize}
+\end{itemize}
+}
+
+\frame
+{
+  \frametitle{Modalités pédagogiques}
+\begin{itemize}
+	\item Polycopié
+	\begin{itemize}
+		\item exemples et informations complémentaires sur \url{https://pedagogie.ec-nantes.fr}
+		\item initiation à Linux sur \url{https://pedagogie.ec-nantes.fr/spip}
+	\end{itemize}
+ \item Rappels pour les TP
+\begin{itemize}
+	\item Présence aux TP obligatoire 
+	\item Absence non-excusée au TP implique la non-validation du TP
+	\item Fraude en TP :  \textbf{\color{red}non-validation du TP}
+\end{itemize}
+\end{itemize}
+}
+
+\section{Les types composés/structurés}
+
+%\subsection{En algorithmique}
+
+\frame
+{
+  \frametitle{Rappel sur les types simples (p21-24)}
+Les types \textbf{simples} de données~:\\
+\begin{tabular}{p{5cm}|l}
+type {\entier} & \texttt{int}\\
+type {\reel} & \texttt{float}\\
+type {\car} & \texttt{char}\\
+type {\bool} & \texttt{int}
+\end{tabular}
+\\
+Il est temps de découvrir les \textbf{types composés}, permettant de manipuler des objets plus complexes.
+}
+
+
+\frame[allowframebreaks]{
+  \frametitle{Pourquoi des types composés ? (p21)}
+  
+  \begin{itemize}
+  	\item Pour manipuler des collections d'\textbf{objets ayant le même type} $\rightarrow$ \textbf{tableaux} ! \\ Par exemple : un vecteur d'entiers
+  	\item Pour regrouper des \textbf{objets de types différents dans une même structure} $\rightarrow$ \textbf{enregistrements} ! \\ Par exemple : un objet "Article" avec :
+	\begin{itemize}
+		\item sa référence (un entier)
+		\item son libellé (une chaîne de caractères)
+		\item son prix (un réel).
+	\end{itemize}
+	
+	\framebreak
+	
+	\item Convention : les types ainsi construits auront un nom commen\c cant par une majuscule systématiquement précédé par {\tt {\ty}}
+	\item Définition des types composés \textbf{dans la partie "Spécifications"} de l'algorithme
+  \end{itemize}
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Les types tableaux (p21)}
+  
+  \begin{itemize}
+  	\item Pour manipuler des données :
+		\begin{itemize}
+		\item \textbf{de même type} ; 
+		\item devant être traitées de manière identique ;
+		\item \textbf{de nombre maximum connu !} ; 
+		\end{itemize}
+	\item Un tableau est défini par :
+		\begin{itemize}
+		\item son nom ; 
+		\item \textbf{le type de ses éléments} ;
+		\item la \textbf{taille maximale} de chaque dimension (facultatif en algo). 
+		\end{itemize}
+  \end{itemize}
+  
+  \framebreak
+  
+  \begin{itemize}
+  	\item Mots réservés~: \vecteur, \matrice, et plus généralement \tableau pour les dimensions supérieures.
+	\item \textbf{Vecteur} :
+		\begin{itemize}
+		\item ensemble d'éléments \textbf{de même type} ; 
+		\item une composante $=$ un élément identifié par un indice (entier) 
+		\item $i^{\grave eme}$ composante d'un vecteur  {\tt v} : ${\tt v[i]}$ ou ${\tt v_i}$.
+		\end{itemize}
+	\item \textbf{Matrice} :
+		\begin{itemize}
+		\item ensemble d'éléments \textbf{de même type} construits selon $2$ directions ; 
+		\item un élément : repéré par 2 coordonnées ;
+		\item élément de la $i^{\grave eme}$ ligne et de la $j^{\grave eme}$
+colonne d'une matrice {\tt M} : ${\tt M_{i,j}}$ ou ${\tt M[i][j]}$.
+		\end{itemize}
+  \end{itemize}
+  
+    \framebreak
+    
+    \norm{/ déclarations de types tableaux /}
+    \norm{\types}
+    \decal{\ty VectEnt~: \vecteur d'\entiers}
+    \decal{\ty MatReels~: \matrice de \reels}
+    \decal{\ty MonTableau~: \tableau d'\entiers de dimension 4}
+}
+
+\frame[allowframebreaks]{
+  \frametitle{Les types enregistrements (p22)}
+  
+  \begin{itemize}
+  	\item \textbf{Pour regrouper des données de types différents.}
+	\item Pour manipuler un ensemble d'"Articles" (libellé/prix/référence) :
+		\begin{itemize}
+		\item manipuler trois tableaux différents pour l'ensemble des articles ;
+		\item ou, plus malin : \textbf{utiliser un enregistrement avec trois champs}
+		\end{itemize}
+  \end{itemize}
+  
+  \framebreak
+  
+\norm{// Déclarations de types }
+\norm{\types}
+\decal{\ty Chaine~: \vecteur de \cars}
+\decal{\ty Article~: \enreg}
+\decala{\entier~:  reference,}
+\decala{\commentz{\ty Chaine~: libelle,}{type précédemment \\défini comme vecteur \\de caractères}}
+\decala{\reel~: prix}
+\decal{\finenreg}
+%\decal{\commentz{\ty VectArticles~: \vecteur de \ty Article}{vecteur dont chaque élément est de type \ty Article}}
+\decal{\ty VectArticles~: \vecteur de \ty Article}\label{typeVectArticles}
+%\\
+
+  \framebreak
+  
+  \textbf{Déclaration générale d'un type enregistrement} : \\
+  \norm{\type}
+\decal{nomduType~: \enreg}
+\decala{\commentz{type champ1,}{de type simple ou composé \\précédemment défini}}
+\decala{\commentz{type champ2,}{de type simple ou composé \\précédemment défini}}
+\decala{\ldots}
+\decal{\finenreg}
+
+  \framebreak
+  
+  \textbf{Manipulation d'une variable de type enregistrement} :
+  \\
+  Soit \texttt{monArticle} une variable de type \texttt{\ty Article}
+  \begin{itemize}
+  	\item \texttt{monArticle.libelle}, de type \texttt{\ty Chaine}, permet d'accéder au libellé de l'article ;
+  	\item \texttt{monArticle.reference}, de type \entier, permet d'accéder à la référence de l'article ;
+	\item \texttt{monArticle.prix}, de type \reel, permet d'accéder au prix de l'article.
+    \end{itemize}
+}
+
+\frame{
+  \frametitle{Affectation de variables de types composés}
+  Soient {\tt s1} et {\tt s2} deux variables de types composés~:
+  \begin{itemize}
+  	\item si {\tt s1} et {\tt s2} sont \textbf{deux tableaux de même type}, {\tt s1$\leftarrow$ s2} signifie que chaque élément de {\tt s1} prend pour valeur celle de l'élément de {\tt s2} de même indice,
+	\item si {\tt s1} et {\tt s2} sont \textbf{deux enregistrements de même type}, {\tt s1$\leftarrow$ s2} signifie que chaque champ de {\tt s1} prend pour valeur celle du champ correspondant de {\tt s2}.
+  \end{itemize}
+}
+
+\frame{
+  \frametitle{Exemple et remarques}
+  \begin{itemize}
+  	\item Application sur le calcul des prix minimum et maximum d'une liste d'articles : p35-37
+	\item Lors d'une lecture/écriture d'une variable de type composé, ne pas développer élément par élément.
+	\item \norm{listeArticles $\leftarrow$ \lire{}} suffit. 
+	\item Les fonctions peuvent bien sûr renvoyer des types composés (mais \alert{attention à la traduction en C !})
+  \end{itemize}
+}
+
+\section{Traitements de files}
+
+\subsection{Introduction}
+
+\frame[allowframebreaks]{
+  \frametitle{Qu'est-ce qu'une file? (p38)}
+  
+  \begin{itemize}
+  	\item Quelques exemples de files :
+		\begin{itemize}
+			\item la file d'attente à la boulangerie ;
+			\item une file de données numériques (notes d'un étudiant) ;
+			\item \dots
+		\end{itemize}
+	\item Le nombre d'éléments de la file n'est pas forcément connu \textit{a priori}.
+  \framebreak
+  	
+	\item Un ensemble d'éléments a une structure de \textbf{file} non vide si on peut définir :		
+  		\begin{itemize}
+			\item   le premier élément de la file,
+			\item   un procédé permettant d'obtenir l'élément suivant de la file,
+			\item   un procédé permettant de détecter la fin de la file.
+		\end{itemize}
+	\item On veut appliquer à tous les éléments de la file (sauf éventuellement le dernier) un traitement.
+		
+	\item \textbf{Idée fondamentale} pour le traitement de file : structures "\tantque{\ldots} / \fintantque" et "\pour{\ldots}{\ldots}/\finpour"
+  \end{itemize}
+}
+
+\subsection{Traitement de files de longueur inconnue}
+
+\frame{
+  \frametitle{Conditions (p38)}
+  
+  \begin{itemize}
+  	\item Longueur de la file inconnue a priori
+	\item Elément final - \textbf{la butée} - supposé reconnaissable
+	\item \textbf{Idée fondamentale} : structure "\tantque{\ldots} / \fintantque"
+	\item Ne pas oublier les cas aux limites : file vide
+  \framebreak
+  \end{itemize}
+}
+  	
+\frame{
+  \frametitle{Schéma d'algorithme (p39)}
+\debut
+\inst{{\em //initialisations des données}}
+\inst{{\em //obtenir le premier élément de la file}}
+\inst{\ldots\ldots\ldots}
+\inst{{\em //itérations sur les éléments de la file à traiter}}
+\inst{\tantque{<<élément non final>>}}
+\instr{{\em //traitement de l'élément courant}}
+\instr{{\em //obtenir l'élément suivant}}
+\instr{\ldots\ldots\ldots}
+\inst{\fintantque}
+\inst{{\em //traitement éventuel de l'élément final}}
+\inst{\ldots\ldots\ldots}
+\inst{{\em //traitement éventuel lié à la fin de file}}
+\inst{\ldots\ldots\ldots}
+\fin
+}
+
+\subsection{Traitement de files de longueur connue}
+
+\frame{
+  \frametitle{Conditions (p39)}
+  
+  \begin{itemize}
+  	\item Longueur de la file connue
+	\item \textit{Chaque élément} : l'obtenir et le traiter
+	\item \textbf{Idée fondamentale} : structure "\pour{\ldots}{\ldots}/\finpour"
+	\item Ne pas oublier les cas aux limites : file vide
+  \end{itemize}
+}
+  	
+\frame{
+  \frametitle{Schéma d'algorithme (p39)}
+\debut
+\inst{{\em //initialisations des données}}
+\inst{\ldots\ldots\ldots}
+\inst{{\em //obtenir le nombre d'éléments de la file}}
+\inst{nbElt $\leftarrow$ \lire{}}
+\inst{{\em // nbElt $\neq$ 0 si la file est non vide }}
+\inst{{\em // itérations sur les éléments de la file à traiter si la file est non vide}}
+\inst{\pour{i<-1}{nbElt}}
+\instr{{\em //obtenir l'élément courant}}
+\instr{{\em //traitement de l'élément courant}}
+\instr{\ldots\ldots\ldots}
+\inst{\finpour}
+\inst{{\em //traitement éventuel lié à la fin de file}}
+\inst{\ldots\ldots\ldots}
+\fin
+}
+
+\subsection{Application}
+
+\frame{
+  \frametitle{Méthodologie}
+  \begin{itemize}
+  	\item Identifier la file :
+		\begin{itemize}
+			\item \alert{\textbf{Qu'est-ce qu'un élément de la file ?}}
+			\item Cas de la file vide ?
+		\end{itemize}
+	\item Comment est obtenu le premier élément ?
+	\item Comment définir le dernier élément ?
+	\item \textbf{Quel traitement} effectuer sur les éléments de la file ? Quid du premier et du dernier élément ?
+	\item Divers exemples d'application (voir p.40)
+  \end{itemize}
+}
+
+\section{À préparer}
+\frame
+{
+  \frametitle{See you next week!}
+  
+  \begin{alertblock}{Pour le prochain TP}
+  Comprendre et maîtriser la traduction en C de tous les éléments vus pendant cette séance : 
+  \begin{itemize}
+  \item Types composés (chap. 10.1 et 10.2) 
+  \item Structure d'un programme (chap. 11)
+  \end{itemize}
+  \end{alertblock}
+  
+  \begin{block}{Pour le prochain TD}
+  Comprendre et maîtriser les fonctions (étudier le chap. 7 du polycopié)
+  \end{block}
+  
+}
+
+\end{document}
+
+
